@@ -6,7 +6,7 @@ const FinalCTA: React.FC = () => {
   return (
     <section className="py-20 bg-gradient-to-r from-mint-500 to-ocean-500 text-white px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto text-center">
-        <div className="mb-8">
+        <div className="mb-16">
           <div className="inline-flex p-4 bg-white/10 rounded-full mb-6">
             <img 
               src="/public/logo-full.png"
