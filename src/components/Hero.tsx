@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
           <div className="animate-fade-in">
             <div className="inline-flex">
               <img 
-                src="/src/assets/nova-intro.png"
+                src="/public/nova-intro.png"
                 alt="Nova, the Web3 learning mascot, hand outward with enthusiasm"
                 classname="w-full h-auto rounded-2xl shadow-2xl mb-10"
               />
