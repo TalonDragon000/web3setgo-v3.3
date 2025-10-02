@@ -39,7 +39,7 @@ const Navigation: React.FC = () => {
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200"
           >
             <img 
-              src="/public/logo-short.png"
+              src="/logo-short.png"
               alt="Web3SetGo Logo"
               className="w-8 h-8"
             />
