@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
               className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200 mb-4"
             >
               <img 
-                src="/src/assets/logo-short.png"
+                src="/logo-short.png"
                 alt="Web3SetGo Logo"
                 className="w-8 h-8"
               />
@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2025 Web3SetGo! v0.3.1. All rights reserved.
+            © 2025 Web3SetGo! v0.3.1 All rights reserved.
           </p>
           <p className="text-gray-400 text-sm flex items-center mt-2 sm:mt-0">
             Made with <Heart className="h-4 w-4 mx-1 text-blue-500" /> for Web3 learners
