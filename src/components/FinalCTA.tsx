@@ -11,7 +11,7 @@ const FinalCTA: React.FC = () => {
             <img 
               src="/public/logo-full.png"
               alt="Web3SetGo Logo"
-              className="w-auto h-50"
+              className="w-auto h-20"
               />
           </div>
           
