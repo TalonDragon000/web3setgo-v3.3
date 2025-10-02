@@ -11,7 +11,7 @@ const NotFoundPage: React.FC = () => {
           {/* Nova 404 Image */}
           <div className="mb-8 animate-fade-in">
             <img 
-              src="/src/assets/nova-404.png"
+              src="/nova-404.png"
               alt="Nova the mascot looking confused - Page not found"
               className="w-full max-w-md mx-auto h-auto"
             />
