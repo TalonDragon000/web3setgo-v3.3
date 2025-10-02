@@ -9,7 +9,7 @@ const FinalCTA: React.FC = () => {
         <div className="mb-16">
           <div className="inline-flex p-4">
             <img 
-              src="/public/logo-full.png"
+              src="/logo-full.png"
               alt="Web3SetGo Logo"
               className="w-auto h-64"
               />
