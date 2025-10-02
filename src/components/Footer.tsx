@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
               className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200 mb-4"
             >
               <img 
-                src="/src/assets/logo-short.png"
+                src="/public/logo-short.png"
                 alt="Web3SetGo Logo"
                 className="w-8 h-8"
               />
