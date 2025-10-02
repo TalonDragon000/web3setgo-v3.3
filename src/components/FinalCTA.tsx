@@ -8,7 +8,11 @@ const FinalCTA: React.FC = () => {
       <div className="max-w-4xl mx-auto text-center">
         <div className="mb-8">
           <div className="inline-flex p-4 bg-white/10 rounded-full mb-6">
-            <Rocket className="h-12 w-12 text-white" />
+            <img 
+              src="/public/logo-full.png"
+              alt="Web3SetGo Logo"
+              className="w-8 h-8"
+              />
           </div>
           
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
