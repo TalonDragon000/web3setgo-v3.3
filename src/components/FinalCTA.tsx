@@ -7,12 +7,14 @@ const FinalCTA: React.FC = () => {
     <section className="py-20 bg-gradient-to-r from-mint-500 to-ocean-500 text-white px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto text-center">
         <div className="mb-16">
-          <img 
-            src="/public/logo-full.png"
-            alt="Web3SetGo Logo"
-            className="w-16 h-16"
-            />
-                  
+          <div className="inline-flex p-4">
+            <img 
+              src="/public/logo-full.png"
+              alt="Web3SetGo Logo"
+              className="w-16 h-16"
+              />
+          </div>
+          
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
             Start your Web3 journey today — no risk, no scams, just learning.
           </h2>
