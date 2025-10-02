@@ -12,8 +12,7 @@ const FinalCTA: React.FC = () => {
             alt="Web3SetGo Logo"
             className="w-16 h-16"
             />
-          </div>
-          
+                  
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
             Start your Web3 journey today — no risk, no scams, just learning.
           </h2>
