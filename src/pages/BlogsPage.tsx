@@ -1,10 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Clock, BookOpen, Users, TrendingUp } from 'lucide-react';
-import { useLessons } from '../hooks/useLessons';
+import { ArrowLeft, Clock, BookOpen } from 'lucide-react';
+import { useBlogs } from '../hooks/useBlogs';
 
-const LearningPage: React.FC = () => {
-  const { lessons, loading, error } = useLessons();
+const BlogsPage: React.FC = () => {
+  const { blogs, loading, error } = useBlogs();
+  const [selectedCategory, setSelectedCategory] = React.useState('All');
+
+  const categories = ['All', ...Array.from(new Set(blogs.map(blog => blog.category)))];
+
+  const filteredBlogs = selectedCategory === 'All'
+    ? blogs
+    : blogs.filter(blog => blog.category === selectedCategory);
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -19,7 +26,7 @@ const LearningPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Error Loading Lessons</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Error Loading Blogs</h2>
           <p className="text-gray-600">{error}</p>
           <Link to="/" className="mt-4 inline-block text-ocean-500 hover:text-ocean-600">
             Return Home
@@ -44,7 +51,7 @@ const LearningPage: React.FC = () => {
 
             <div className="flex items-center space-x-2">
               <BookOpen className="h-6 w-6 text-ocean-500" />
-              <span className="text-xl font-semibold text-gray-900">Learning Hub</span>
+              <span className="text-xl font-semibold text-gray-900">Blog</span>
             </div>
           </div>
         </div>
@@ -53,26 +60,31 @@ const LearningPage: React.FC = () => {
       <section className="bg-gradient-to-b from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            Interactive Web3 Lessons
+            Web3 Insights & Articles
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            Step-by-step interactive lessons designed to teach you Web3 fundamentals
-            through hands-on learning experiences.
+            In-depth articles and guides to help you understand Web3 concepts,
+            from basic principles to advanced topics.
           </p>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <div className="flex items-center justify-center space-x-2 text-gray-600">
-              <Users className="h-5 w-5 text-mint-500" />
-              <span className="text-sm">10,000+ Learners</span>
-            </div>
-            <div className="flex items-center justify-center space-x-2 text-gray-600">
-              <BookOpen className="h-5 w-5 text-success-500" />
-              <span className="text-sm">{lessons.length} Lessons</span>
-            </div>
-            <div className="flex items-center justify-center space-x-2 text-gray-600">
-              <TrendingUp className="h-5 w-5 text-accentYellow-500" />
-              <span className="text-sm">Updated Weekly</span>
-            </div>
+      <section className="py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+                  selectedCategory === category
+                    ? 'bg-gradient-to-r from-mint-500 to-ocean-500 text-white'
+                    : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         </div>
       </section>
@@ -85,42 +97,46 @@ const LearningPage: React.FC = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {lessons.map((lesson, index) => (
+              {filteredBlogs.map((blog, index) => (
                 <Link
-                  key={lesson.id}
-                  to={`/learning/${lesson.slug}`}
+                  key={blog.id}
+                  to={`/blogs/${blog.slug}`}
                   className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-slide-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="aspect-video overflow-hidden bg-gradient-to-br from-ocean-400 to-mint-500 flex items-center justify-center">
-                    <span className="text-6xl font-bold text-white opacity-30">{index + 1}</span>
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={blog.image_url}
+                      alt={blog.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
 
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center text-sm text-gray-500">
                         <Clock className="h-4 w-4 mr-1" />
-                        {lesson.duration}
+                        {blog.read_time}
                       </div>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(lesson.difficulty)}`}>
-                        {lesson.difficulty}
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(blog.difficulty)}`}>
+                        {blog.difficulty}
                       </span>
                     </div>
 
                     <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
-                      {lesson.title}
+                      {blog.title}
                     </h3>
 
                     <p className="text-gray-600 mb-4 leading-relaxed">
-                      {lesson.description}
+                      {blog.description}
                     </p>
 
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-ocean-500 font-medium">
-                        Lesson {lesson.order_index}
+                        {blog.category}
                       </span>
                       <span className="text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200">
-                        Start Learning →
+                        Read More →
                       </span>
                     </div>
                   </div>
@@ -134,4 +150,4 @@ const LearningPage: React.FC = () => {
   );
 };
 
-export default LearningPage;
+export default BlogsPage;

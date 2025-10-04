@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, TrendingUp, TrendingDown, Briefcase, Heart, Brain, Target } from 'lucide-react';
+import { ArrowLeft, CheckCircle, TrendingUp, TrendingDown, Briefcase, Heart, Brain, Target, BookOpen } from 'lucide-react';
+import { useQuizzes } from '../hooks/useQuizzes';
 
 interface QuizOption {
   id: string;
@@ -26,6 +27,7 @@ interface Quiz {
 }
 
 const QuizPage: React.FC = () => {
+  const { quizzes: dbQuizzes, loading, error } = useQuizzes();
   const [selectedQuiz, setSelectedQuiz] = useState<string | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
@@ -324,34 +326,79 @@ const QuizPage: React.FC = () => {
         {/* Quiz Selection */}
         <section className="py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {quizzes.map((quiz, index) => (
-                <div
-                  key={quiz.id}
-                  className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-slide-up cursor-pointer"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                  onClick={() => setSelectedQuiz(quiz.id)}
-                >
-                  <div className={`h-32 bg-gradient-to-r ${quiz.color} flex items-center justify-center`}>
-                    <quiz.icon className="h-16 w-16 text-white" />
+            {loading ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-ocean-500 border-t-transparent"></div>
+              </div>
+            ) : (
+              <>
+                {dbQuizzes.length > 0 && (
+                  <div className="mb-12">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-6">Knowledge Quizzes</h2>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {dbQuizzes.map((quiz, index) => (
+                        <Link
+                          key={quiz.id}
+                          to={`/quiz/${quiz.id}`}
+                          className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-slide-up"
+                          style={{ animationDelay: `${index * 0.1}s` }}
+                        >
+                          <div className="h-32 bg-gradient-to-r from-success-500 to-ocean-500 flex items-center justify-center">
+                            <BookOpen className="h-16 w-16 text-white" />
+                          </div>
+
+                          <div className="p-6">
+                            <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
+                              {quiz.title}
+                            </h3>
+
+                            <p className="text-gray-600 mb-4 leading-relaxed">
+                              {quiz.description}
+                            </p>
+
+                            <span className="inline-flex items-center text-ocean-500 font-semibold hover:text-ocean-600 transition-colors duration-200">
+                              Take Quiz →
+                            </span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                  
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
-                      {quiz.title}
-                    </h3>
-                    
-                    <p className="text-gray-600 mb-4 leading-relaxed">
-                      {quiz.description}
-                    </p>
-                    
-                    <span className="inline-flex items-center text-ocean-500 font-semibold hover:text-ocean-600 transition-colors duration-200">
-                      Take Quiz →
-                    </span>
+                )}
+
+                <div>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Personality Assessments</h2>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {quizzes.map((quiz, index) => (
+                      <div
+                        key={quiz.id}
+                        className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-slide-up cursor-pointer"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                        onClick={() => setSelectedQuiz(quiz.id)}
+                      >
+                        <div className={`h-32 bg-gradient-to-r ${quiz.color} flex items-center justify-center`}>
+                          <quiz.icon className="h-16 w-16 text-white" />
+                        </div>
+
+                        <div className="p-6">
+                          <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
+                            {quiz.title}
+                          </h3>
+
+                          <p className="text-gray-600 mb-4 leading-relaxed">
+                            {quiz.description}
+                          </p>
+
+                          <span className="inline-flex items-center text-ocean-500 font-semibold hover:text-ocean-600 transition-colors duration-200">
+                            Take Quiz →
+                          </span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </div>
         </section>
       </div>

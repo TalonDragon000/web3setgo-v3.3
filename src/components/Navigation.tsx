@@ -48,24 +48,24 @@ const Navigation: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection('why-learn')}
+            <Link
+              to="/learning"
               className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
             >
-              Why Learn
-            </button>
-            <button
-              onClick={() => scrollToSection('how-it-works')}
+              Lessons
+            </Link>
+            <Link
+              to="/blogs"
               className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
             >
-              How It Works
-            </button>
-            <button
-              onClick={() => scrollToSection('resource-hub')}
+              Blog
+            </Link>
+            <Link
+              to="/quiz"
               className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
             >
-              Resources
-            </button>
+              Quizzes
+            </Link>
             <Link
               to="/learning"
               className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-lg hover:from-mint-600 hover:to-ocean-600 transition-all duration-200"
@@ -91,24 +91,27 @@ const Navigation: React.FC = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-100">
             <div className="flex flex-col space-y-4">
-              <button
-                onClick={() => scrollToSection('why-learn')}
+              <Link
+                to="/learning"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
               >
-                Why Learn
-              </button>
-              <button
-                onClick={() => scrollToSection('how-it-works')}
+                Lessons
+              </Link>
+              <Link
+                to="/blogs"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
               >
-                How It Works
-              </button>
-              <button
-                onClick={() => scrollToSection('resource-hub')}
+                Blog
+              </Link>
+              <Link
+                to="/quiz"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
               >
-                Resources
-              </button>
+                Quizzes
+              </Link>
               <Link
                 to="/learning"
                 onClick={() => setIsMobileMenuOpen(false)}
