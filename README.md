@@ -14,7 +14,7 @@ Web3SetGo is an educational web application that helps beginners learn about Web
 
 ## Tech Stack
 
-- **Frontend Framework**: React 18.3
+- **Frontend Framework**: React 18.3 with bolt.new
 - **Language**: TypeScript 5.5
 - **Build Tool**: Vite 5.4
 - **Styling**: Tailwind CSS 3.4
