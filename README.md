@@ -2,6 +2,9 @@
 
 A modern, interactive educational platform designed to teach Web3 concepts in a safe, simple, and engaging way. Built with React, TypeScript, and Tailwind CSS.
 
+<img width="1229" height="670" alt="image" src="https://github.com/user-attachments/assets/4d7b8d99-ae48-4152-a501-717eac933143" />
+
+
 ## About the Project
 
 Web3SetGo is an educational web application that helps beginners learn about Web3, blockchain, and cryptocurrency through:
