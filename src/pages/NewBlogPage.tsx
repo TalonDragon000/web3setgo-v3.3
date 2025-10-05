@@ -75,7 +75,7 @@ const NewBlogPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 mt-50">
+    <div className="min-h-screen bg-slate-50">
       {toasts.map((toast) => (
         <Toast
           key={toast.id}
