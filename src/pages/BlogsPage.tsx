@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Clock, BookOpen, Plus, Edit } from 'lucide-react';
+import { ArrowLeft, Clock, BookOpen, Plus, CreditCard as Edit } from 'lucide-react';
 import { useBlogs } from '../hooks/useBlogs';
 
 const BlogsPage: React.FC = () => {

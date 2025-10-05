@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Edit, Save, X, Trash2 } from 'lucide-react';
+import { ArrowLeft, CreditCard as Edit, Save, X, Trash2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useBlogBySlug } from '../hooks/useBlogBySlug';
