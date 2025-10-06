@@ -110,7 +110,13 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
           />
         ) : (
           <div className="prose prose-lg prose-slate max-w-none min-h-[200px]">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              remarkRehypeOptions={{ handlers: {} }}
+              components={{
+                p: ({ children }) => <p className="mb-4">{children}</p>,
+              }}
+            >
               {value || '*No content to preview*'}
             </ReactMarkdown>
           </div>

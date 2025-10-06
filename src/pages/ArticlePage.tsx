@@ -431,7 +431,14 @@ const ArticlePage: React.FC = () => {
               </div>
 
               <div className="prose prose-xl prose-slate max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{blog.content}</ReactMarkdown>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    p: ({ children }) => <p className="mb-4">{children}</p>,
+                  }}
+                >
+                  {blog.content}
+                </ReactMarkdown>
               </div>
             </>
           )}
