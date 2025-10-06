@@ -9,6 +9,7 @@ import { useToast } from '../hooks/useToast';
 import MarkdownEditor from '../components/MarkdownEditor';
 import Toast from '../components/Toast';
 import { slugify } from '../utils/slugify';
+import { calculateReadTime } from '../utils/readTime';
 
 const ArticlePage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -47,6 +48,13 @@ const ArticlePage: React.FC = () => {
       });
     }
   }, [blog]);
+
+  useEffect(() => {
+    if (isEditing && editedBlog.content) {
+      const readTime = calculateReadTime(editedBlog.content);
+      setEditedBlog(prev => ({ ...prev, read_time: readTime }));
+    }
+  }, [editedBlog.content, isEditing]);
 
   useEffect(() => {
     if (!blog || !isEditing) return;
@@ -345,10 +353,11 @@ const ArticlePage: React.FC = () => {
                   <input
                     type="text"
                     value={editedBlog.read_time}
-                    onChange={(e) => setEditedBlog({ ...editedBlog, read_time: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ocean-500 focus:border-transparent"
-                    placeholder="e.g., 5 min read"
+                    readOnly
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 cursor-not-allowed"
+                    title="Auto-calculated based on content length"
                   />
+                  <p className="text-xs text-gray-500 mt-1">Auto-calculated from content</p>
                 </div>
 
                 <div>
