@@ -109,7 +109,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
             className="w-full resize-none focus:outline-none font-mono text-sm leading-relaxed text-gray-900"
           />
         ) : (
-          <div className="prose prose-lg max-w-none min-h-[200px]">
+          <div className="prose prose-lg prose-slate max-w-none min-h-[200px]">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {value || '*No content to preview*'}
             </ReactMarkdown>

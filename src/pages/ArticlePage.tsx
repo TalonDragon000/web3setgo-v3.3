@@ -430,7 +430,7 @@ const ArticlePage: React.FC = () => {
                 />
               </div>
 
-              <div className="prose prose-xl prose-gray max-w-none">
+              <div className="prose prose-xl prose-slate max-w-none">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{blog.content}</ReactMarkdown>
               </div>
             </>
