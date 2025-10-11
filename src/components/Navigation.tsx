@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogIn, LogOut, Shield } from 'lucide-react';
+import { useAdmin } from '../contexts/AdminContext';
+import AdminLogin from './admin/AdminLogin';
 
 const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const location = useLocation();
+  const { isAdmin, logout } = useAdmin();
 
   const scrollToSection = (sectionId: string) => {
     // If not on homepage, navigate to homepage first
@@ -28,9 +32,13 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm"
-    >
+    <>
+      {showLoginModal && (
+        <AdminLogin onClose={() => setShowLoginModal(false)} />
+      )}
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm"
+      >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -49,10 +57,10 @@ const Navigation: React.FC = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link
-              to="/learning"
+              to="/blogs"
               className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
             >
-              Lessons
+              Learn
             </Link>
             <Link
               to="/simulations"
@@ -72,8 +80,31 @@ const Navigation: React.FC = () => {
             >
               Quizzes
             </Link>
+            {isAdmin ? (
+              <>
+                <div className="flex items-center space-x-2 px-3 py-1 bg-ocean-100 text-ocean-700 rounded-lg">
+                  <Shield className="h-4 w-4" />
+                  <span className="text-sm font-medium">Admin</span>
+                </div>
+                <button
+                  onClick={logout}
+                  className="inline-flex items-center px-4 py-2 text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setShowLoginModal(true)}
+                className="inline-flex items-center px-4 py-2 text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
+              >
+                <LogIn className="h-4 w-4 mr-2" />
+                Admin Login
+              </button>
+            )}
             <Link
-              to="/learning"
+              to="/blogs"
               className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-lg hover:from-mint-600 hover:to-ocean-600 transition-all duration-200"
             >
               Start Learning
@@ -98,11 +129,11 @@ const Navigation: React.FC = () => {
           <div className="md:hidden py-4 border-t border-gray-100">
             <div className="flex flex-col space-y-4">
               <Link
-                to="/learning"
+                to="/blogs"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
               >
-                Lessons
+                Learn
               </Link>
               <Link
                 to="/simulations"
@@ -125,8 +156,37 @@ const Navigation: React.FC = () => {
               >
                 Quizzes
               </Link>
+              {isAdmin ? (
+                <>
+                  <div className="flex items-center space-x-2 px-3 py-2 bg-ocean-100 text-ocean-700 rounded-lg">
+                    <Shield className="h-4 w-4" />
+                    <span className="text-sm font-medium">Admin Mode</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="inline-flex items-center justify-center px-4 py-2 text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => {
+                    setShowLoginModal(true);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="inline-flex items-center justify-center px-4 py-2 text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
+                >
+                  <LogIn className="h-4 w-4 mr-2" />
+                  Admin Login
+                </button>
+              )}
               <Link
-                to="/learning"
+                to="/blogs"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-lg hover:from-mint-600 hover:to-ocean-600 transition-all duration-200"
               >
@@ -137,6 +197,7 @@ const Navigation: React.FC = () => {
         )}
       </div>
     </nav>
+    </>
   );
 };
 

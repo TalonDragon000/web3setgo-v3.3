@@ -4,7 +4,6 @@ import Navigation from './components/Navigation';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
-import LearningPage from './pages/LearningPage';
 import BlogsPage from './pages/BlogsPage';
 import ArticlePage from './pages/ArticlePage';
 import NewBlogPage from './pages/NewBlogPage';
@@ -12,6 +11,7 @@ import QuizPage from './pages/QuizPage';
 import SimulationsPage from './pages/SimulationsPage';
 import SimulationPage from './pages/SimulationPage';
 import NotFoundPage from './pages/NotFoundPage';
+import RequireAdmin from './components/admin/RequireAdmin';
 
 function App() {
   return (
@@ -22,10 +22,8 @@ function App() {
         <div className="pt-16">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/learning" element={<LearningPage />} />
-            <Route path="/learning/:slug" element={<ArticlePage />} />
             <Route path="/blogs" element={<BlogsPage />} />
-            <Route path="/blogs/new" element={<NewBlogPage />} />
+            <Route path="/blogs/new" element={<RequireAdmin><NewBlogPage /></RequireAdmin>} />
             <Route path="/blogs/:slug" element={<ArticlePage />} />
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/simulations" element={<SimulationsPage />} />

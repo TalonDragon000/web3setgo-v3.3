@@ -2,16 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Clock, BookOpen, Plus, CreditCard as Edit } from 'lucide-react';
 import { useBlogs } from '../hooks/useBlogs';
+import { useAdmin } from '../contexts/AdminContext';
 
 const BlogsPage: React.FC = () => {
   const { blogs, loading, error } = useBlogs();
-  const [selectedCategory, setSelectedCategory] = React.useState('All');
+  const { isAdmin } = useAdmin();
+  const [selectedType, setSelectedType] = React.useState('All');
 
-  const categories = ['All', ...Array.from(new Set(blogs.map(blog => blog.category)))];
+  const types = ['All', 'lesson', 'devlog', 'news', 'article'];
 
-  const filteredBlogs = selectedCategory === 'All'
+  const filteredBlogs = selectedType === 'All'
     ? blogs
-    : blogs.filter(blog => blog.category === selectedCategory);
+    : blogs.filter(blog => blog.type === selectedType);
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -60,11 +62,11 @@ const BlogsPage: React.FC = () => {
       <section className="bg-gradient-to-b from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            Web3 Insights & Articles
+            Learn Web3
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            In-depth articles and guides to help you understand Web3 concepts,
-            from basic principles to advanced topics.
+            Explore lessons, articles, developer logs, and the latest news in the Web3 space.
+            Everything you need to understand blockchain and decentralized technology.
           </p>
         </div>
       </section>
@@ -72,17 +74,17 @@ const BlogsPage: React.FC = () => {
       <section className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {categories.map((category) => (
+            {types.map((type) => (
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
-                  selectedCategory === category
+                key={type}
+                onClick={() => setSelectedType(type)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 capitalize ${
+                  selectedType === type
                     ? 'bg-gradient-to-r from-mint-500 to-ocean-500 text-white'
                     : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
                 }`}
               >
-                {category}
+                {type === 'All' ? 'All' : type === 'devlog' ? 'Dev Logs' : `${type}s`}
               </button>
             ))}
           </div>
@@ -90,13 +92,15 @@ const BlogsPage: React.FC = () => {
       </section>
 
       <section className="pb-20 px-4 sm:px-6 lg:px-8 relative">
-        <Link
-          to="/blogs/new"
-          className="fixed bottom-8 right-8 p-4 bg-ocean-500 text-white rounded-full shadow-lg hover:bg-ocean-600 hover:shadow-xl transition-all duration-200 z-40"
-          title="Create new blog post"
-        >
-          <Plus className="h-6 w-6" />
-        </Link>
+        {isAdmin && (
+          <Link
+            to="/blogs/new"
+            className="fixed bottom-8 right-8 p-4 bg-ocean-500 text-white rounded-full shadow-lg hover:bg-ocean-600 hover:shadow-xl transition-all duration-200 z-40"
+            title="Create new blog post"
+          >
+            <Plus className="h-6 w-6" />
+          </Link>
+        )}
 
         <div className="max-w-7xl mx-auto">
           {loading ? (
@@ -140,8 +144,8 @@ const BlogsPage: React.FC = () => {
                       </p>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-ocean-500 font-medium">
-                          {blog.category}
+                        <span className="text-sm text-ocean-500 font-medium capitalize">
+                          {blog.type === 'devlog' ? 'Dev Log' : blog.type}
                         </span>
                         <span className="text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200">
                           Read More →
@@ -150,13 +154,15 @@ const BlogsPage: React.FC = () => {
                     </div>
                   </Link>
 
-                  <Link
-                    to={`/blogs/${blog.slug}`}
-                    className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-ocean-500 hover:text-white transition-all duration-200 opacity-0 group-hover:opacity-100"
-                    title="Edit blog"
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Link>
+                  {isAdmin && (
+                    <Link
+                      to={`/blogs/${blog.slug}`}
+                      className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-ocean-500 hover:text-white transition-all duration-200 opacity-0 group-hover:opacity-100"
+                      title="Edit blog"
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>

@@ -6,8 +6,10 @@ import remarkGfm from 'remark-gfm';
 import { useBlogBySlug } from '../hooks/useBlogBySlug';
 import { useBlogMutations } from '../hooks/useBlogMutations';
 import { useToast } from '../hooks/useToast';
+import { useAdmin } from '../contexts/AdminContext';
 import MarkdownEditor from '../components/MarkdownEditor';
 import Toast from '../components/Toast';
+import AdminLogin from '../components/admin/AdminLogin';
 import { slugify } from '../utils/slugify';
 import { calculateReadTime } from '../utils/readTime';
 
@@ -17,14 +19,17 @@ const ArticlePage: React.FC = () => {
   const { blog, loading: blogLoading } = useBlogBySlug(slug);
   const { updateBlog, deleteBlog, checkSlugExists, loading: mutationLoading } = useBlogMutations();
   const { toasts, showToast, removeToast } = useToast();
+  const { isAdmin } = useAdmin();
 
   const [isEditing, setIsEditing] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [editedBlog, setEditedBlog] = useState({
     title: '',
     description: '',
     content: '',
     category: '',
     difficulty: '',
+    type: 'article',
     read_time: '',
     image_url: '',
     published: true,
@@ -41,6 +46,7 @@ const ArticlePage: React.FC = () => {
         content: blog.content,
         category: blog.category,
         difficulty: blog.difficulty,
+        type: blog.type,
         read_time: blog.read_time,
         image_url: blog.image_url,
         published: blog.published,
@@ -74,6 +80,10 @@ const ArticlePage: React.FC = () => {
   }, [editedBlog, blog, isEditing]);
 
   const handleEdit = () => {
+    if (!isAdmin) {
+      setShowLoginModal(true);
+      return;
+    }
     setIsEditing(true);
   };
 
@@ -91,6 +101,7 @@ const ArticlePage: React.FC = () => {
         content: blog.content,
         category: blog.category,
         difficulty: blog.difficulty,
+        type: blog.type,
         read_time: blog.read_time,
         image_url: blog.image_url,
         published: blog.published,
@@ -187,6 +198,16 @@ const ArticlePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      {showLoginModal && (
+        <AdminLogin
+          onClose={() => setShowLoginModal(false)}
+          onSuccess={() => {
+            setShowLoginModal(false);
+            setIsEditing(true);
+          }}
+        />
+      )}
+
       {toasts.map((toast) => (
         <Toast
           key={toast.id}
@@ -321,7 +342,21 @@ const ArticlePage: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                  <select
+                    value={editedBlog.type}
+                    onChange={(e) => setEditedBlog({ ...editedBlog, type: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ocean-500 focus:border-transparent"
+                  >
+                    <option value="lesson">Lesson</option>
+                    <option value="devlog">Dev Log</option>
+                    <option value="news">News</option>
+                    <option value="article">Article</option>
+                  </select>
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
                   <input

@@ -42,7 +42,7 @@ const ResourceHub: React.FC = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {articles.map((article, index) => (
             <Link
-              to={`/learning/${article.slug}`}
+              to={`/blogs/${article.slug}`}
               key={index}
               className="group bg-slate-50 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 animate-slide-up"
               style={{ animationDelay: `${index * 0.1}s` }}
@@ -83,8 +83,8 @@ const ResourceHub: React.FC = () => {
         </div>
         
         <div className="text-center mt-12">
-          <Link 
-            to="/learning"
+          <Link
+            to="/blogs"
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-ocean-600 transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             View All Articles

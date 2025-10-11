@@ -20,6 +20,8 @@ export interface Database {
           image_url: string
           category: string
           difficulty: string
+          type: string
+          order_index: number | null
           published: boolean
           created_at: string
           updated_at: string
@@ -34,6 +36,8 @@ export interface Database {
           image_url?: string
           category?: string
           difficulty?: string
+          type?: string
+          order_index?: number | null
           published?: boolean
           created_at?: string
           updated_at?: string
@@ -48,48 +52,29 @@ export interface Database {
           image_url?: string
           category?: string
           difficulty?: string
+          type?: string
+          order_index?: number | null
           published?: boolean
           created_at?: string
           updated_at?: string
         }
       }
-      lessons: {
+      admin_config: {
         Row: {
           id: string
-          slug: string
-          title: string
-          description: string
-          content: string
-          duration: string
-          difficulty: string
-          order_index: number
-          published: boolean
+          password_hash: string
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
-          slug: string
-          title: string
-          description: string
-          content?: string
-          duration?: string
-          difficulty?: string
-          order_index?: number
-          published?: boolean
+          password_hash: string
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
-          slug?: string
-          title?: string
-          description?: string
-          content?: string
-          duration?: string
-          difficulty?: string
-          order_index?: number
-          published?: boolean
+          password_hash?: string
           created_at?: string
           updated_at?: string
         }

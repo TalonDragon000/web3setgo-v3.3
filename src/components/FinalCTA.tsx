@@ -26,8 +26,8 @@ const FinalCTA: React.FC = () => {
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link 
-            to="/learning"
+          <Link
+            to="/blogs"
             className="inline-flex items-center px-8 py-4 bg-white text-primary-600 font-semibold rounded-xl hover:bg-gray-50 transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
             <Rocket className="mr-2 h-5 w-5" />

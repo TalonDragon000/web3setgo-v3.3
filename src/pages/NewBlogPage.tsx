@@ -19,6 +19,7 @@ const NewBlogPage: React.FC = () => {
     content: '# Your Blog Title\n\nStart writing your content here...',
     category: 'General',
     difficulty: 'Beginner',
+    type: 'article',
     read_time: '1 min read',
     image_url: '/nova-come-trans.png',
     published: true,
@@ -173,7 +174,21 @@ const NewBlogPage: React.FC = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                <select
+                  value={newBlog.type}
+                  onChange={(e) => setNewBlog({ ...newBlog, type: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ocean-500 focus:border-transparent"
+                >
+                  <option value="lesson">Lesson</option>
+                  <option value="devlog">Dev Log</option>
+                  <option value="news">News</option>
+                  <option value="article">Article</option>
+                </select>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
                 <input
