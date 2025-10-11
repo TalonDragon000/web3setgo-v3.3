@@ -2,6 +2,7 @@ import React from 'react';
 import Hero from '../components/Hero';
 import WhyLearnWithUs from '../components/WhyLearnWithUs';
 import HowItWorks from '../components/HowItWorks';
+import SimulationsSection from '../components/SimulationsSection';
 import ResourceHub from '../components/ResourceHub';
 import QuizSection from '../components/QuizSection';
 import Testimonials from '../components/Testimonials';
@@ -13,6 +14,7 @@ const HomePage: React.FC = () => {
       <Hero />
       <WhyLearnWithUs />
       <HowItWorks />
+      <SimulationsSection />
       <ResourceHub />
       <QuizSection />
       {/* <Testimonials /> */}

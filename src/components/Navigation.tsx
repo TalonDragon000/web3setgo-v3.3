@@ -55,6 +55,12 @@ const Navigation: React.FC = () => {
               Lessons
             </Link>
             <Link
+              to="/simulations"
+              className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
+            >
+              Simulations
+            </Link>
+            <Link
               to="/blogs"
               className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
             >
@@ -97,6 +103,13 @@ const Navigation: React.FC = () => {
                 className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
               >
                 Lessons
+              </Link>
+              <Link
+                to="/simulations"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
+              >
+                Simulations
               </Link>
               <Link
                 to="/blogs"

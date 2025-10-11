@@ -9,6 +9,8 @@ import BlogsPage from './pages/BlogsPage';
 import ArticlePage from './pages/ArticlePage';
 import NewBlogPage from './pages/NewBlogPage';
 import QuizPage from './pages/QuizPage';
+import SimulationsPage from './pages/SimulationsPage';
+import SimulationPage from './pages/SimulationPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
             <Route path="/blogs/new" element={<NewBlogPage />} />
             <Route path="/blogs/:slug" element={<ArticlePage />} />
             <Route path="/quiz" element={<QuizPage />} />
+            <Route path="/simulations" element={<SimulationsPage />} />
+            <Route path="/simulations/:slug" element={<SimulationPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
