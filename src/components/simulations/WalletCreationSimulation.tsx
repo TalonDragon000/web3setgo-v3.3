@@ -24,7 +24,6 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
   const [showSeedPhrase, setShowSeedPhrase] = useState(false);
   const [verificationWords, setVerificationWords] = useState<number[]>([]);
   const [selectedWords, setSelectedWords] = useState<{ [key: number]: string }>({});
-  const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
   const [verificationComplete, setVerificationComplete] = useState(false);
 
@@ -32,12 +31,27 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
     if (currentStep === 3 && seedPhrase.length > 0) {
       const randomIndices = [2, 6, 10];
       setVerificationWords(randomIndices);
-
-      const allWords = [...seedPhrase];
-      const shuffled = allWords.sort(() => Math.random() - 0.5);
-      setShuffledOptions(shuffled);
     }
   }, [currentStep, seedPhrase]);
+
+  const generateWordOptions = (correctIndex: number): string[] => {
+    if (seedPhrase.length === 0) return [];
+
+    const correctWord = seedPhrase[correctIndex];
+    const otherIndices = seedPhrase
+      .map((_, idx) => idx)
+      .filter(idx => idx !== correctIndex);
+
+    const shuffledOtherIndices = otherIndices.sort(() => Math.random() - 0.5);
+    const selectedOtherIndices = shuffledOtherIndices.slice(0, 5);
+
+    const options = [
+      correctWord,
+      ...selectedOtherIndices.map(idx => seedPhrase[idx])
+    ];
+
+    return options.sort(() => Math.random() - 0.5);
+  };
 
   const handleWelcome = () => {
     onStepComplete(currentStep + 1);
@@ -279,28 +293,31 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
         </p>
 
         <div className="space-y-6 mb-8">
-          {verificationWords.map((wordIndex) => (
-            <div key={wordIndex}>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Word #{wordIndex + 1}
-              </label>
-              <div className="grid grid-cols-3 gap-2">
-                {shuffledOptions.slice(0, 6).map((word, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => handleWordSelect(wordIndex, word)}
-                    className={`p-3 rounded-lg border-2 font-mono text-sm transition-all duration-200 ${
-                      selectedWords[wordIndex] === word
-                        ? 'border-ocean-500 bg-ocean-50 text-ocean-700'
-                        : 'border-gray-200 hover:border-ocean-300 bg-white'
-                    }`}
-                  >
-                    {word}
-                  </button>
-                ))}
+          {verificationWords.map((wordIndex) => {
+            const wordOptions = generateWordOptions(wordIndex);
+            return (
+              <div key={wordIndex}>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Word #{wordIndex + 1}
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {wordOptions.map((word, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleWordSelect(wordIndex, word)}
+                      className={`p-3 rounded-lg border-2 font-mono text-sm transition-all duration-200 ${
+                        selectedWords[wordIndex] === word
+                          ? 'border-ocean-500 bg-ocean-50 text-ocean-700'
+                          : 'border-gray-200 hover:border-ocean-300 bg-white'
+                      }`}
+                    >
+                      {word}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {verificationComplete ? (
