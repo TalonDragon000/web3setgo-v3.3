@@ -24,6 +24,7 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
   const [showSeedPhrase, setShowSeedPhrase] = useState(false);
   const [verificationWords, setVerificationWords] = useState<number[]>([]);
   const [selectedWords, setSelectedWords] = useState<{ [key: number]: string }>({});
+  const [wordOptionsMap, setWordOptionsMap] = useState<{ [key: number]: string[] }>({});
   const [copied, setCopied] = useState(false);
   const [verificationComplete, setVerificationComplete] = useState(false);
 
@@ -31,6 +32,26 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
     if (currentStep === 3 && seedPhrase.length > 0) {
       const randomIndices = [2, 6, 10];
       setVerificationWords(randomIndices);
+
+      // Generate word options once when entering verification step
+      const optionsMap: { [key: number]: string[] } = {};
+      randomIndices.forEach((correctIndex) => {
+        const correctWord = seedPhrase[correctIndex];
+        const otherIndices = seedPhrase
+          .map((_, idx) => idx)
+          .filter(idx => idx !== correctIndex);
+
+        const shuffledOtherIndices = otherIndices.sort(() => Math.random() - 0.5);
+        const selectedOtherIndices = shuffledOtherIndices.slice(0, 5);
+
+        const options = [
+          correctWord,
+          ...selectedOtherIndices.map(idx => seedPhrase[idx])
+        ];
+
+        optionsMap[correctIndex] = options.sort(() => Math.random() - 0.5);
+      });
+      setWordOptionsMap(optionsMap);
     }
   }, [currentStep, seedPhrase]);
 
@@ -294,7 +315,7 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
 
         <div className="space-y-6 mb-8">
           {verificationWords.map((wordIndex) => {
-            const wordOptions = generateWordOptions(wordIndex);
+            const wordOptions = wordOptionsMap[wordIndex] || [];
             return (
               <div key={wordIndex}>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
