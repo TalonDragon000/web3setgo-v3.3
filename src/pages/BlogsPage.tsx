@@ -84,7 +84,7 @@ const BlogsPage: React.FC = () => {
                     : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
                 }`}
               >
-                {type === 'All' ? 'All' : type === 'devlog' ? 'Dev Logs' : `${type}s`}
+                {type === 'All' ? 'All' : type === 'devlog' ? 'Dev Logs' : `${type}`}
               </button>
             ))}
           </div>
