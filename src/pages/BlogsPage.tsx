@@ -62,11 +62,11 @@ const BlogsPage: React.FC = () => {
       <section className="bg-gradient-to-b from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            Learn Web3
+            Blogs Center
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
             Explore lessons, articles, developer logs, and the latest news in the Web3 space.
-            Everything you need to understand blockchain and decentralized technology.
+            Everything you need to understand blockchain, decentralized technology, and company updates.
           </p>
         </div>
       </section>
