@@ -5,7 +5,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import BlogsPage from './pages/BlogsPage';
-import ArticlePage from './pages/ArticlePage';
+import BlogPostPage from './pages/BlogPostPage';
 import NewBlogPage from './pages/NewBlogPage';
 import QuizPage from './pages/QuizPage';
 import SimulationsPage from './pages/SimulationsPage';
