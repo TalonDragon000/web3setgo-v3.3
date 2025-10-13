@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, LogIn, LogOut, Shield } from 'lucide-react';
-import { useAdmin } from '../contexts/AdminContext';
-import AdminLogin from './admin/AdminLogin';
+import { Heart } from 'lucide-react';
 
 const Footer: React.FC = () => {
-  const { isAdmin, logout } = useAdmin();
-  const [showLoginModal, setShowLoginModal] = useState(false);
-
   const scrollToSection = (sectionId: string) => {
     // If not on homepage, navigate to homepage first
     if (window.location.pathname !== '/') {
@@ -28,11 +23,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <>
-      {showLoginModal && (
-        <AdminLogin onClose={() => setShowLoginModal(false)} />
-      )}
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Logo and Description */}
@@ -76,7 +67,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link
-                  to="/blogs"
+                  to="/learning"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   Learning Hub
@@ -91,7 +82,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/blogs/what-is-a-wallet"
+                  to="/learning/what-is-a-wallet"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   What is a Wallet?
@@ -99,7 +90,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link
-                  to="/blogs/web2-vs-web3-explained"
+                  to="/learning/web2-vs-web3-explained"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   Web2 vs Web3
@@ -107,7 +98,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link
-                  to="/blogs/why-people-talk-about-blockchains"
+                  to="/learning/why-people-talk-about-blockchains"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   About Blockchains
@@ -118,42 +109,16 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
             © 2025 Web3SetGo! v0.3.1 All rights reserved.
           </p>
-          <p className="text-gray-400 text-sm flex items-center">
+          <p className="text-gray-400 text-sm flex items-center mt-2 sm:mt-0">
             Made with <Heart className="h-4 w-4 mx-1 text-blue-500" /> for Web3 learners
           </p>
-
-          {/* Admin Login/Logout */}
-          {isAdmin ? (
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-800 text-gray-300 rounded text-xs">
-                <Shield className="h-3 w-3" />
-                <span>Admin</span>
-              </div>
-              <button
-                onClick={logout}
-                className="flex items-center gap-1.5 px-2.5 py-1 text-gray-400 hover:text-white transition-colors duration-200 text-xs"
-              >
-                <LogOut className="h-3 w-3" />
-                Logout
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => setShowLoginModal(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1 text-gray-400 hover:text-white transition-colors duration-200 text-xs"
-            >
-              <LogIn className="h-3 w-3" />
-              Admin Login
-            </button>
-          )}
         </div>
       </div>
     </footer>
-    </>
   );
 };
 
