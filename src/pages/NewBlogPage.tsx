@@ -21,7 +21,7 @@ const NewBlogPage: React.FC = () => {
     difficulty: 'Beginner',
     type: 'article',
     read_time: '1 min read',
-    image_url: '/nova-come-trans.png',
+    image_url: '',
     published: true,
     slug: '',
   });
