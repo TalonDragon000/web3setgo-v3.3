@@ -14,7 +14,7 @@ const BlogDefaultImage: React.FC<BlogDefaultImageProps> = ({ type, className = '
       case 'devlog':
         return <Code className="w-24 h-24 text-white" strokeWidth={1.5} />;
       case 'news':
-        return <Newspaper className="w-24 h-24 text-white" strokeWidth={1.5} />;
+        return <Megaphone className="w-24 h-24 text-white" strokeWidth={1.5} />;
       case 'article':
       default:
         return <FileText className="w-24 h-24 text-white" strokeWidth={1.5} />;
