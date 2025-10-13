@@ -21,7 +21,7 @@ const NewBlogPage: React.FC = () => {
     difficulty: 'Beginner',
     type: 'article',
     read_time: '1 min read',
-    image_url: '',
+    image_url: '/blog-bg.png',
     published: true,
     slug: '',
   });
@@ -261,7 +261,7 @@ const NewBlogPage: React.FC = () => {
                     alt="Preview"
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.currentTarget.src = '/nova-come-trans.png';
+                      e.currentTarget.src = '/blog-bg.png';
                     }}
                   />
                 </div>
