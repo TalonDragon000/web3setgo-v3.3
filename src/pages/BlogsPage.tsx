@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Clock, BookOpen, Plus, CreditCard as Edit } from 'lucide-react';
 import { useBlogs } from '../hooks/useBlogs';
 import { useAdmin } from '../contexts/AdminContext';
+import BlogDefaultImage from '../components/BlogDefaultImage';
+import { shouldUseDefaultImage } from '../utils/imageHelpers';
 
 const BlogsPage: React.FC = () => {
   const { blogs, loading, error } = useBlogs();
@@ -117,11 +119,15 @@ const BlogsPage: React.FC = () => {
                 >
                   <Link to={`/blogs/${blog.slug}`} className="block">
                     <div className="aspect-video overflow-hidden">
-                      <img
-                        src={blog.image_url}
-                        alt={blog.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
+                      {shouldUseDefaultImage(blog.image_url) ? (
+                        <BlogDefaultImage type={blog.type} className="w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                      ) : (
+                        <img
+                          src={blog.image_url}
+                          alt={blog.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      )}
                     </div>
 
                     <div className="p-6">

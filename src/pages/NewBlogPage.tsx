@@ -7,6 +7,8 @@ import MarkdownEditor from '../components/MarkdownEditor';
 import Toast from '../components/Toast';
 import { slugify } from '../utils/slugify';
 import { calculateReadTime } from '../utils/readTime';
+import BlogDefaultImage from '../components/BlogDefaultImage';
+import { shouldUseDefaultImage } from '../utils/imageHelpers';
 
 const NewBlogPage: React.FC = () => {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const NewBlogPage: React.FC = () => {
     difficulty: 'Beginner',
     type: 'article',
     read_time: '1 min read',
-    image_url: '/blog-bg.png',
+    image_url: '',
     published: true,
     slug: '',
   });
@@ -246,26 +248,39 @@ const NewBlogPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
-              <input
-                type="text"
-                value={newBlog.image_url}
-                onChange={(e) => setNewBlog({ ...newBlog, image_url: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ocean-500 focus:border-transparent"
-                placeholder="https://example.com/image.jpg"
-              />
-              {newBlog.image_url && (
-                <div className="mt-2 aspect-video rounded-lg overflow-hidden">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Image URL
+                <span className="ml-2 text-xs text-gray-500">(Optional - gradient will be used if empty)</span>
+              </label>
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={newBlog.image_url}
+                  onChange={(e) => setNewBlog({ ...newBlog, image_url: e.target.value })}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ocean-500 focus:border-transparent"
+                  placeholder="https://example.com/image.jpg"
+                />
+                {newBlog.image_url && (
+                  <button
+                    type="button"
+                    onClick={() => setNewBlog({ ...newBlog, image_url: '' })}
+                    className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors duration-200"
+                  >
+                    Use Default
+                  </button>
+                )}
+              </div>
+              <div className="mt-2 aspect-video rounded-lg overflow-hidden">
+                {shouldUseDefaultImage(newBlog.image_url) ? (
+                  <BlogDefaultImage type={newBlog.type} className="w-full h-full" />
+                ) : (
                   <img
                     src={newBlog.image_url}
                     alt="Preview"
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src = '/blog-bg.png';
-                    }}
                   />
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
             <div>
