@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Code, Newspaper, FileText } from 'lucide-react';
+import { GraduationCap, Code, Newspaper, Megaphone } from 'lucide-react';
 
 interface BlogDefaultImageProps {
   type: string;
@@ -10,14 +10,14 @@ const BlogDefaultImage: React.FC<BlogDefaultImageProps> = ({ type, className = '
   const getIcon = () => {
     switch (type) {
       case 'lesson':
-        return <BookOpen className="w-24 h-24 text-white" strokeWidth={1.5} />;
+        return <GraduationCap className="w-24 h-24 text-white" strokeWidth={1.5} />;
       case 'devlog':
         return <Code className="w-24 h-24 text-white" strokeWidth={1.5} />;
       case 'news':
         return <Megaphone className="w-24 h-24 text-white" strokeWidth={1.5} />;
       case 'article':
       default:
-        return <FileText className="w-24 h-24 text-white" strokeWidth={1.5} />;
+        return <Newspaper className="w-24 h-24 text-white" strokeWidth={1.5} />;
     }
   };
 
