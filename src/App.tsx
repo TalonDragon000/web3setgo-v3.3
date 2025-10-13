@@ -24,7 +24,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/blogs" element={<BlogsPage />} />
             <Route path="/blogs/new" element={<RequireAdmin><NewBlogPage /></RequireAdmin>} />
-            <Route path="/blogs/:slug" element={<ArticlePage />} />
+            <Route path="/blogs/:slug" element={<BlogPostPage />} />
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/simulations" element={<SimulationsPage />} />
             <Route path="/simulations/:slug" element={<SimulationPage />} />
