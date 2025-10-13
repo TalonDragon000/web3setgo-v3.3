@@ -53,7 +53,7 @@ const BlogsPage: React.FC = () => {
 
             <div className="flex items-center space-x-2">
               <BookOpen className="h-6 w-6 text-ocean-500" />
-              <span className="text-xl font-semibold text-gray-900">Blog</span>
+              <span className="text-xl font-semibold text-gray-900">Blogs</span>
             </div>
           </div>
         </div>
