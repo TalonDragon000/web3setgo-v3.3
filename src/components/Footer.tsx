@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
                   to="/blogs"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  Learning Hub
+                  Blog Center
                 </Link>
               </li>
             </ul>
