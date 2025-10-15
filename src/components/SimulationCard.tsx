@@ -8,7 +8,7 @@ interface SimulationCardProps {
   description: string;
   difficulty: string;
   duration: string;
-  color: string;
+  colorScheme: string;
   icon: string;
 }
 
@@ -18,7 +18,7 @@ const SimulationCard: React.FC<SimulationCardProps> = ({
   description,
   difficulty,
   duration,
-  color: 'from-mint-500 to-ocean-500',
+  colorScheme= 'from-mint-500 to-ocean-500',
   icon: Zap, 
 }) => {
   const getDifficultyColor = (diff: string) => {
