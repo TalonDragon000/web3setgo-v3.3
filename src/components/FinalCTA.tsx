@@ -20,7 +20,7 @@ const FinalCTA: React.FC = () => {
           </h2>
           
           <p className="text-xl text-white/90 mb-8 leading-relaxed">
-            Join thousands of learners who discovered Web3 the safe way. 
+            Discover Web3 the safe way. 
             Your future self will thank you for starting today.
           </p>
         </div>

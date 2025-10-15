@@ -8,7 +8,8 @@ interface SimulationCardProps {
   description: string;
   difficulty: string;
   duration: string;
-  colorScheme?: string;
+  colorScheme: string;
+  icon: React.ReactElement;
 }
 
 const SimulationCard: React.FC<SimulationCardProps> = ({
@@ -17,7 +18,8 @@ const SimulationCard: React.FC<SimulationCardProps> = ({
   description,
   difficulty,
   duration,
-  colorScheme = 'from-mint-500 to-ocean-500',
+  colorScheme= 'from-mint-500 to-ocean-500',
+  icon= <Zap className="h-12 w-12 text-white" />, 
 }) => {
   const getDifficultyColor = (diff: string) => {
     switch (diff) {
@@ -38,7 +40,7 @@ const SimulationCard: React.FC<SimulationCardProps> = ({
       className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
     >
       <div className={`h-32 bg-gradient-to-r ${colorScheme} flex items-center justify-center relative`}>
-        <Zap className="h-12 w-12 text-white" />
+        {icon}
         <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
           <span className="text-xs font-semibold text-white">PRACTICE</span>
         </div>

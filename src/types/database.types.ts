@@ -88,6 +88,12 @@ export interface Database {
           questions: Json
           passing_score: number
           published: boolean
+          quiz_type: string
+          icon: string
+          color_scheme: string
+          result_categories: Json
+          slug: string | null
+          order_index: number
           created_at: string
           updated_at: string
         }
@@ -99,6 +105,12 @@ export interface Database {
           questions?: Json
           passing_score?: number
           published?: boolean
+          quiz_type?: string
+          icon?: string
+          color_scheme?: string
+          result_categories?: Json
+          slug?: string | null
+          order_index?: number
           created_at?: string
           updated_at?: string
         }
@@ -110,6 +122,94 @@ export interface Database {
           questions?: Json
           passing_score?: number
           published?: boolean
+          quiz_type?: string
+          icon?: string
+          color_scheme?: string
+          result_categories?: Json
+          slug?: string | null
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      simulations: {
+        Row: {
+          id: string
+          slug: string
+          title: string
+          description: string
+          category: string
+          difficulty: string
+          duration: string
+          component_type: string
+          icon: string
+          color_scheme: string
+          order_index: number
+          published: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          slug: string
+          title: string
+          description: string
+          category?: string
+          difficulty?: string
+          duration?: string
+          component_type?: string
+          icon?: string
+          color_scheme?: string
+          order_index?: number
+          published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          slug?: string
+          title?: string
+          description?: string
+          category?: string
+          difficulty?: string
+          duration?: string
+          component_type?: string
+          icon?: string
+          color_scheme?: string
+          order_index?: number
+          published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      simulation_steps: {
+        Row: {
+          id: string
+          simulation_id: string
+          step_order: number
+          title: string
+          description: string
+          hints: Json
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          simulation_id: string
+          step_order?: number
+          title: string
+          description?: string
+          hints?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          simulation_id?: string
+          step_order?: number
+          title?: string
+          description?: string
+          hints?: Json
           created_at?: string
           updated_at?: string
         }

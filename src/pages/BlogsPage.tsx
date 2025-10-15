@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Clock, BookOpen, Plus, CreditCard as Edit } from 'lucide-react';
 import { useBlogs } from '../hooks/useBlogs';
 import { useAdmin } from '../contexts/AdminContext';
+import BlogDefaultImage from '../components/BlogDefaultImage';
+import { shouldUseDefaultImage } from '../utils/imageHelpers';
 
 const BlogsPage: React.FC = () => {
   const { blogs, loading, error } = useBlogs();
@@ -53,7 +55,7 @@ const BlogsPage: React.FC = () => {
 
             <div className="flex items-center space-x-2">
               <BookOpen className="h-6 w-6 text-ocean-500" />
-              <span className="text-xl font-semibold text-gray-900">Blog</span>
+              <span className="text-xl font-semibold text-gray-900">Blogs</span>
             </div>
           </div>
         </div>
@@ -62,11 +64,11 @@ const BlogsPage: React.FC = () => {
       <section className="bg-gradient-to-b from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            Learn Web3
+            Blogs Center
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
             Explore lessons, articles, developer logs, and the latest news in the Web3 space.
-            Everything you need to understand blockchain and decentralized technology.
+            Everything you need to understand blockchain, decentralized technology, and company updates.
           </p>
         </div>
       </section>
@@ -84,7 +86,7 @@ const BlogsPage: React.FC = () => {
                     : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
                 }`}
               >
-                {type === 'All' ? 'All' : type === 'devlog' ? 'Dev Logs' : `${type}s`}
+                {type === 'All' ? 'All' : type === 'devlog' ? 'Dev Logs' : `${type}`}
               </button>
             ))}
           </div>
@@ -117,11 +119,15 @@ const BlogsPage: React.FC = () => {
                 >
                   <Link to={`/blogs/${blog.slug}`} className="block">
                     <div className="aspect-video overflow-hidden">
-                      <img
-                        src={blog.image_url}
-                        alt={blog.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
+                      {shouldUseDefaultImage(blog.image_url) ? (
+                        <BlogDefaultImage type={blog.type} className="w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                      ) : (
+                        <img
+                          src={blog.image_url}
+                          alt={blog.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      )}
                     </div>
 
                     <div className="p-6">

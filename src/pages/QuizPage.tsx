@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, TrendingUp, TrendingDown, Briefcase, Heart, Brain, Target, BookOpen } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { ArrowLeft, CheckCircle } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { useQuizzes } from '../hooks/useQuizzes';
+import { useQuizBySlug } from '../hooks/useQuizBySlug';
 
 interface QuizOption {
   id: string;
   text: string;
-  value: number;
+  value?: number;
   category?: string;
+  correct?: number;
 }
 
 interface QuizQuestion {
@@ -16,245 +19,60 @@ interface QuizQuestion {
   options: QuizOption[];
 }
 
-interface Quiz {
-  id: string;
-  title: string;
-  description: string;
-  icon: React.ComponentType<any>;
-  color: string;
-  questions: QuizQuestion[];
-  resultCategories: { [key: string]: { title: string; description: string; advice: string } };
-}
-
 const QuizPage: React.FC = () => {
-  const { quizzes: dbQuizzes, loading, error } = useQuizzes();
+  const { slug } = useParams<{ slug: string }>();
+  const { quizzes, loading: quizzesLoading } = useQuizzes();
+  const { quiz: specificQuiz, loading: quizLoading } = useQuizBySlug(slug);
+  
   const [selectedQuiz, setSelectedQuiz] = useState<string | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [showResult, setShowResult] = useState(false);
 
-  const quizzes: Quiz[] = [
-    {
-      id: 'web3-for-me',
-      title: 'Is Web3 For Me?',
-      description: 'Discover which Web3 features could benefit your work and lifestyle',
-      icon: Target,
-      color: 'from-mint-500 to-ocean-500',
-      questions: [
-        {
-          id: 'work-type',
-          question: 'What best describes your work?',
-          options: [
-            { id: 'creative', text: 'Creative work (art, writing, music)', value: 3, category: 'creator' },
-            { id: 'business', text: 'Business/entrepreneurship', value: 2, category: 'business' },
-            { id: 'tech', text: 'Technology/development', value: 3, category: 'tech' },
-            { id: 'finance', text: 'Finance/investing', value: 3, category: 'finance' },
-            { id: 'other', text: 'Other profession', value: 1, category: 'general' }
-          ]
-        },
-        {
-          id: 'pain-points',
-          question: 'What frustrates you most about current systems?',
-          options: [
-            { id: 'middlemen', text: 'Too many middlemen taking cuts', value: 3, category: 'creator' },
-            { id: 'control', text: 'Lack of control over my data', value: 2, category: 'privacy' },
-            { id: 'access', text: 'Limited access to global markets', value: 3, category: 'business' },
-            { id: 'fees', text: 'High transaction fees', value: 2, category: 'finance' },
-            { id: 'none', text: 'Current systems work fine for me', value: 0, category: 'general' }
-          ]
-        },
-        {
-          id: 'interests',
-          question: 'Which Web3 concept interests you most?',
-          options: [
-            { id: 'nfts', text: 'Owning digital assets (NFTs)', value: 3, category: 'creator' },
-            { id: 'defi', text: 'Decentralized finance (DeFi)', value: 3, category: 'finance' },
-            { id: 'dao', text: 'Community governance (DAOs)', value: 2, category: 'business' },
-            { id: 'identity', text: 'Digital identity control', value: 2, category: 'privacy' },
-            { id: 'unsure', text: 'Not sure yet', value: 1, category: 'general' }
-          ]
-        }
-      ],
-      resultCategories: {
-        creator: {
-          title: 'Web3 Creator',
-          description: 'Web3 offers powerful tools for creators like you!',
-          advice: 'Explore NFT marketplaces, creator DAOs, and direct fan monetization. You could benefit from royalty systems and cutting out traditional middlemen.'
-        },
-        finance: {
-          title: 'DeFi Explorer',
-          description: 'Decentralized finance could revolutionize your financial activities.',
-          advice: 'Start with yield farming, liquidity pools, and decentralized exchanges. Learn about lending protocols and automated market makers.'
-        },
-        business: {
-          title: 'Web3 Entrepreneur',
-          description: 'Web3 opens new business models and global opportunities.',
-          advice: 'Investigate DAOs, tokenomics, and blockchain-based business models. Consider how smart contracts could automate your processes.'
-        },
-        tech: {
-          title: 'Web3 Builder',
-          description: 'Your technical skills are perfect for the Web3 ecosystem.',
-          advice: 'Dive into smart contract development, dApp creation, and blockchain protocols. The demand for Web3 developers is huge!'
-        },
-        privacy: {
-          title: 'Digital Sovereignty Seeker',
-          description: 'Web3 aligns with your desire for data control and privacy.',
-          advice: 'Focus on self-sovereign identity, decentralized storage, and privacy-focused protocols. You\'ll love having control over your digital footprint.'
-        },
-        general: {
-          title: 'Web3 Curious',
-          description: 'Web3 might not be immediately relevant, but it\'s worth understanding.',
-          advice: 'Start with basic education about blockchain and cryptocurrency. Keep an eye on developments that might affect your industry in the future.'
-        }
-      }
-    },
-    {
-      id: 'career-assessment',
-      title: 'Web3 Career Assessment',
-      description: 'Find your ideal Web3 career path based on your interests and skills',
-      icon: Briefcase,
-      color: 'from-success-500 to-mint-500',
-      questions: [
-        {
-          id: 'skills',
-          question: 'What are your strongest skills?',
-          options: [
-            { id: 'coding', text: 'Programming and development', value: 3, category: 'developer' },
-            { id: 'design', text: 'Design and user experience', value: 2, category: 'designer' },
-            { id: 'writing', text: 'Writing and communication', value: 2, category: 'content' },
-            { id: 'analysis', text: 'Data analysis and research', value: 3, category: 'analyst' },
-            { id: 'people', text: 'Working with people and teams', value: 2, category: 'community' }
-          ]
-        },
-        {
-          id: 'work-style',
-          question: 'What work environment do you prefer?',
-          options: [
-            { id: 'technical', text: 'Deep technical problem-solving', value: 3, category: 'developer' },
-            { id: 'creative', text: 'Creative and visual projects', value: 3, category: 'designer' },
-            { id: 'research', text: 'Research and analysis', value: 3, category: 'analyst' },
-            { id: 'social', text: 'Community building and engagement', value: 3, category: 'community' },
-            { id: 'education', text: 'Teaching and content creation', value: 3, category: 'content' }
-          ]
-        },
-        {
-          id: 'motivation',
-          question: 'What motivates you most about Web3?',
-          options: [
-            { id: 'innovation', text: 'Building cutting-edge technology', value: 3, category: 'developer' },
-            { id: 'adoption', text: 'Making Web3 accessible to everyone', value: 2, category: 'designer' },
-            { id: 'education', text: 'Helping others understand Web3', value: 3, category: 'content' },
-            { id: 'data', text: 'Understanding market trends', value: 3, category: 'analyst' },
-            { id: 'community', text: 'Building strong communities', value: 3, category: 'community' }
-          ]
-        }
-      ],
-      resultCategories: {
-        developer: {
-          title: 'Web3 Developer',
-          description: 'You\'re perfect for building the future of the internet!',
-          advice: 'Focus on Solidity, smart contract development, and dApp creation. Consider specializing in DeFi protocols, NFT platforms, or Layer 2 solutions.'
-        },
-        designer: {
-          title: 'Web3 UX/UI Designer',
-          description: 'Web3 desperately needs great designers to improve user experience.',
-          advice: 'Learn about wallet UX, DeFi interfaces, and NFT marketplaces. Your skills in making complex systems simple are invaluable in Web3.'
-        },
-        analyst: {
-          title: 'Web3 Analyst',
-          description: 'Your analytical skills are crucial for understanding Web3 markets.',
-          advice: 'Dive into on-chain analytics, tokenomics research, and DeFi protocol analysis. Consider roles at crypto funds or research firms.'
-        },
-        content: {
-          title: 'Web3 Content Creator',
-          description: 'Web3 needs clear communicators to bridge the knowledge gap.',
-          advice: 'Create educational content, technical documentation, or community resources. Consider roles in developer relations or content marketing.'
-        },
-        community: {
-          title: 'Web3 Community Manager',
-          description: 'Strong communities are the backbone of successful Web3 projects.',
-          advice: 'Focus on Discord/Telegram management, DAO governance, and community growth strategies. Your people skills are essential for Web3 adoption.'
-        }
-      }
-    },
-    {
-      id: 'bull-or-bear',
-      title: 'Are You Bull or Bear?',
-      description: 'Discover your Web3 and crypto sentiment and investment personality',
-      icon: TrendingUp,
-      color: 'from-accentYellow-500 to-orange-500',
-      questions: [
-        {
-          id: 'market-view',
-          question: 'How do you view the current crypto market?',
-          options: [
-            { id: 'bullish', text: 'Very optimistic - we\'re going to the moon! 🚀', value: 3, category: 'bull' },
-            { id: 'cautious-bull', text: 'Optimistic but cautious', value: 2, category: 'bull' },
-            { id: 'neutral', text: 'Neutral - waiting to see what happens', value: 0, category: 'neutral' },
-            { id: 'cautious-bear', text: 'Pessimistic but open-minded', value: -2, category: 'bear' },
-            { id: 'bearish', text: 'Very pessimistic - it\'s all going to crash', value: -3, category: 'bear' }
-          ]
-        },
-        {
-          id: 'investment-style',
-          question: 'What\'s your investment approach?',
-          options: [
-            { id: 'hodl', text: 'HODL forever - diamond hands 💎', value: 3, category: 'bull' },
-            { id: 'dca', text: 'Dollar-cost averaging regularly', value: 2, category: 'bull' },
-            { id: 'swing', text: 'Buy dips, sell peaks', value: 0, category: 'neutral' },
-            { id: 'minimal', text: 'Very small, experimental amounts', value: -1, category: 'bear' },
-            { id: 'none', text: 'I don\'t invest in crypto', value: -3, category: 'bear' }
-          ]
-        },
-        {
-          id: 'future-outlook',
-          question: 'Where do you see Web3 in 5 years?',
-          options: [
-            { id: 'mainstream', text: 'Mainstream adoption everywhere', value: 3, category: 'bull' },
-            { id: 'growing', text: 'Steady growth and real use cases', value: 2, category: 'bull' },
-            { id: 'niche', text: 'Useful but still niche', value: 0, category: 'neutral' },
-            { id: 'struggling', text: 'Still struggling with adoption', value: -2, category: 'bear' },
-            { id: 'failed', text: 'Mostly failed experiment', value: -3, category: 'bear' }
-          ]
-        }
-      ],
-      resultCategories: {
-        bull: {
-          title: '🐂 Crypto Bull',
-          description: 'You\'re optimistic about Web3\'s future and ready to ride the waves!',
-          advice: 'Your enthusiasm is great, but remember to manage risk. Consider DCA strategies, diversification, and never invest more than you can afford to lose. Stay informed about market cycles.'
-        },
-        bear: {
-          title: '🐻 Crypto Bear',
-          description: 'You\'re skeptical about Web3 and prefer to be cautious.',
-          advice: 'Your caution is valuable in volatile markets. Consider starting with education rather than investment. If you do invest, start very small and focus on established projects with real utility.'
-        },
-        neutral: {
-          title: '🦎 Crypto Chameleon',
-          description: 'You adapt to market conditions and stay balanced.',
-          advice: 'Your balanced approach is wise. Focus on fundamental analysis, diversification, and having both bull and bear market strategies. You\'re well-positioned for long-term success.'
-        }
-      }
+  // If slug is provided, auto-select that quiz
+  useEffect(() => {
+    if (slug && specificQuiz) {
+      setSelectedQuiz(specificQuiz.id);
     }
-  ];
+  }, [slug, specificQuiz]);
 
-  const currentQuiz = quizzes.find(q => q.id === selectedQuiz);
-  const currentQuestionData = currentQuiz?.questions[currentQuestion];
+  const getIconComponent = (iconName: string) => {
+    const IconComponent = (Icons as any)[iconName];
+    return IconComponent || Icons.BookOpen;
+  };
+
+  const getCurrentQuiz = () => {
+    if (slug && specificQuiz) {
+      return specificQuiz;
+    }
+    return quizzes.find(q => q.id === selectedQuiz);
+  };
+
+  const currentQuiz = getCurrentQuiz();
+  const questions: QuizQuestion[] = currentQuiz?.questions 
+    ? (typeof currentQuiz.questions === 'string' 
+        ? JSON.parse(currentQuiz.questions) 
+        : currentQuiz.questions)
+    : [];
+
+  const resultCategories = currentQuiz?.result_categories
+    ? (typeof currentQuiz.result_categories === 'string'
+        ? JSON.parse(currentQuiz.result_categories)
+        : currentQuiz.result_categories)
+    : {};
 
   const handleAnswerSelect = (optionId: string) => {
     if (!currentQuiz) return;
     
-    setAnswers(prev => ({
-      ...prev,
-      [currentQuestionData!.id]: optionId
-    }));
+    setAnswers({
+      ...answers,
+      [questions[currentQuestion].id]: optionId,
+    });
   };
 
   const handleNext = () => {
-    if (!currentQuiz) return;
-    
-    if (currentQuestion < currentQuiz.questions.length - 1) {
-      setCurrentQuestion(prev => prev + 1);
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
     } else {
       setShowResult(true);
     }
@@ -262,23 +80,56 @@ const QuizPage: React.FC = () => {
 
   const calculateResult = () => {
     if (!currentQuiz) return null;
-    
-    const categoryScores: { [key: string]: number } = {};
-    
-    currentQuiz.questions.forEach(question => {
-      const answerId = answers[question.id];
-      const selectedOption = question.options.find(opt => opt.id === answerId);
+
+    if (currentQuiz.quiz_type === 'knowledge') {
+      // Calculate score for knowledge quiz
+      let correct = 0;
+      questions.forEach(question => {
+        const selectedOptionId = answers[question.id];
+        const selectedOption = question.options.find(opt => opt.id === selectedOptionId);
+        if (selectedOption?.correct === 1) {
+          correct++;
+        }
+      });
       
-      if (selectedOption && selectedOption.category) {
-        categoryScores[selectedOption.category] = (categoryScores[selectedOption.category] || 0) + selectedOption.value;
-      }
-    });
-    
-    const topCategory = Object.entries(categoryScores).reduce((a, b) => 
-      categoryScores[a[0]] > categoryScores[b[0]] ? a : b
-    )[0];
-    
-    return currentQuiz.resultCategories[topCategory];
+      const percentage = (correct / questions.length) * 100;
+      const passed = percentage >= (currentQuiz.passing_score || 70);
+      
+      return {
+        type: 'knowledge' as const,
+        score: correct,
+        total: questions.length,
+        percentage: Math.round(percentage),
+        passed,
+      };
+    } else {
+      // Calculate category for personality quiz
+      const categoryCounts: { [key: string]: number } = {};
+      
+      questions.forEach(question => {
+        const selectedOptionId = answers[question.id];
+        const selectedOption = question.options.find(opt => opt.id === selectedOptionId);
+        
+        if (selectedOption?.category) {
+          categoryCounts[selectedOption.category] = 
+            (categoryCounts[selectedOption.category] || 0) + (selectedOption.value || 0);
+        }
+      });
+
+      const topCategory = Object.entries(categoryCounts).reduce((a, b) => 
+        a[1] > b[1] ? a : b
+      )[0];
+
+      return {
+        type: 'personality' as const,
+        category: topCategory,
+        result: resultCategories[topCategory] || {
+          title: 'Result',
+          description: 'Thank you for completing the quiz!',
+          advice: '',
+        },
+      };
+    }
   };
 
   const resetQuiz = () => {
@@ -294,14 +145,22 @@ const QuizPage: React.FC = () => {
     setShowResult(false);
   };
 
-  if (!selectedQuiz) {
+  if (quizzesLoading || quizLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-ocean-500 border-t-transparent"></div>
+      </div>
+    );
+  }
+
+  // Quiz Selection View
+  if (!selectedQuiz || !currentQuiz) {
     return (
       <div className="min-h-screen bg-slate-50">
-        {/* Header */}
         <header className="bg-white shadow-sm border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="inline-flex items-center text-gray-600 hover:text-ocean-600 transition-colors duration-200"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
@@ -310,94 +169,62 @@ const QuizPage: React.FC = () => {
           </div>
         </header>
 
-        {/* Hero Section */}
         <section className="bg-gradient-to-b from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Interactive Web3 Quizzes
+              Test Your Knowledge
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Discover your Web3 journey with our fun, personalized quizzes. 
-              Get insights about your interests, career potential, and market sentiment.
+              Challenge yourself with interactive quizzes designed to assess your Web3 understanding
             </p>
           </div>
         </section>
 
-        {/* Quiz Selection */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <section className="pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            {loading ? (
-              <div className="flex items-center justify-center py-20">
-                <div className="animate-spin rounded-full h-12 w-12 border-4 border-ocean-500 border-t-transparent"></div>
+            {quizzes.length === 0 ? (
+              <div className="text-center py-20">
+                <p className="text-gray-600 text-lg">No quizzes available yet.</p>
               </div>
             ) : (
-              <>
-                {dbQuizzes.length > 0 && (
-                  <div className="mb-12">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-6">Knowledge Quizzes</h2>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {dbQuizzes.map((quiz, index) => (
-                        <Link
-                          key={quiz.id}
-                          to={`/quiz/${quiz.id}`}
-                          className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-slide-up"
-                          style={{ animationDelay: `${index * 0.1}s` }}
-                        >
-                          <div className="h-32 bg-gradient-to-r from-success-500 to-ocean-500 flex items-center justify-center">
-                            <BookOpen className="h-16 w-16 text-white" />
-                          </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {quizzes.map((quiz, index) => {
+                  const IconComponent = getIconComponent(quiz.icon);
+                  
+                  return (
+                    <button
+                      key={quiz.id}
+                      onClick={() => setSelectedQuiz(quiz.id)}
+                      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 text-left"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <div className={`h-32 bg-gradient-to-r ${quiz.color_scheme} flex items-center justify-center`}>
+                        <IconComponent className="h-16 w-16 text-white" />
+                      </div>
 
-                          <div className="p-6">
-                            <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
-                              {quiz.title}
-                            </h3>
-
-                            <p className="text-gray-600 mb-4 leading-relaxed">
-                              {quiz.description}
-                            </p>
-
-                            <span className="inline-flex items-center text-ocean-500 font-semibold hover:text-ocean-600 transition-colors duration-200">
-                              Take Quiz →
-                            </span>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Personality Assessments</h2>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {quizzes.map((quiz, index) => (
-                      <div
-                        key={quiz.id}
-                        className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-slide-up cursor-pointer"
-                        style={{ animationDelay: `${index * 0.1}s` }}
-                        onClick={() => setSelectedQuiz(quiz.id)}
-                      >
-                        <div className={`h-32 bg-gradient-to-r ${quiz.color} flex items-center justify-center`}>
-                          <quiz.icon className="h-16 w-16 text-white" />
-                        </div>
-
-                        <div className="p-6">
-                          <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
-                            {quiz.title}
-                          </h3>
-
-                          <p className="text-gray-600 mb-4 leading-relaxed">
-                            {quiz.description}
-                          </p>
-
-                          <span className="inline-flex items-center text-ocean-500 font-semibold hover:text-ocean-600 transition-colors duration-200">
-                            Take Quiz →
+                      <div className="p-6">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-medium px-2 py-1 rounded-full bg-ocean-100 text-ocean-700 capitalize">
+                            {quiz.quiz_type}
                           </span>
                         </div>
+
+                        <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
+                          {quiz.title}
+                        </h3>
+
+                        <p className="text-gray-600 mb-4 leading-relaxed">
+                          {quiz.description}
+                        </p>
+
+                        <span className="text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200">
+                          Start Quiz →
+                        </span>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </>
+                    </button>
+                  );
+                })}
+              </div>
             )}
           </div>
         </section>
@@ -405,15 +232,25 @@ const QuizPage: React.FC = () => {
     );
   }
 
+  const IconComponent = getIconComponent(currentQuiz.icon);
+
+  // Results View
   if (showResult) {
     const result = calculateResult();
     
+    if (!result) {
+      return (
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+          <p>Error calculating results</p>
+        </div>
+      );
+    }
+
     return (
       <div className="min-h-screen bg-slate-50">
-        {/* Header */}
         <header className="bg-white shadow-sm border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <button 
+            <button
               onClick={resetQuiz}
               className="inline-flex items-center text-gray-600 hover:text-ocean-600 transition-colors duration-200"
             >
@@ -423,45 +260,76 @@ const QuizPage: React.FC = () => {
           </div>
         </header>
 
-        {/* Result */}
         <section className="py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-8">
-              <CheckCircle className="h-16 w-16 text-success-500 mx-auto mb-6" />
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                {result?.title}
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                {result?.description}
-              </p>
+          <div className="max-w-2xl mx-auto">
+            <div className={`bg-gradient-to-r ${currentQuiz.color_scheme} rounded-2xl p-8 text-white text-center mb-8`}>
+              <IconComponent className="h-20 w-20 mx-auto mb-4" />
+              <h2 className="text-3xl font-bold mb-2">Quiz Complete!</h2>
+              <p className="text-lg opacity-90">{currentQuiz.title}</p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">Your Personalized Advice</h2>
-              <p className="text-gray-700 leading-relaxed text-lg">
-                {result?.advice}
-              </p>
-            </div>
+            <div className="bg-white rounded-2xl p-8 shadow-sm">
+              {result.type === 'knowledge' ? (
+                <>
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-r from-mint-500 to-ocean-500 text-white mb-4">
+                      <span className="text-3xl font-bold">{result.percentage}%</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                      {result.passed ? 'Congratulations!' : 'Keep Learning!'}
+                    </h3>
+                    <p className="text-gray-600">
+                      You scored {result.score} out of {result.total} questions correctly
+                    </p>
+                    {result.passed ? (
+                      <div className="mt-4 inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full">
+                        <CheckCircle className="h-5 w-5 mr-2" />
+                        Passed
+                      </div>
+                    ) : (
+                      <p className="mt-4 text-gray-600">
+                        You need {currentQuiz.passing_score || 70}% to pass. Try again!
+                      </p>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="text-center mb-6">
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-mint-500 to-ocean-500 text-white mb-4">
+                      <CheckCircle className="h-10 w-10" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                      {result.result.title}
+                    </h3>
+                    <p className="text-lg text-gray-700 mb-4">
+                      {result.result.description}
+                    </p>
+                  </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={restartCurrentQuiz}
-                className="px-8 py-4 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-ocean-600 transition-all duration-200"
-              >
-                Retake Quiz
-              </button>
-              <button
-                onClick={resetQuiz}
-                className="px-8 py-4 bg-white text-ocean-600 font-semibold rounded-xl border-2 border-ocean-500 hover:bg-ocean-50 transition-colors duration-200"
-              >
-                Try Another Quiz
-              </button>
-              <Link
-                to="/learning"
-                className="px-8 py-4 bg-accentYellow-500 text-white font-semibold rounded-xl hover:bg-accentYellow-600 transition-colors duration-200"
-              >
-                Start Learning
-              </Link>
+                  {result.result.advice && (
+                    <div className="bg-ocean-50 border-l-4 border-ocean-500 p-4 rounded">
+                      <h4 className="font-semibold text-gray-900 mb-2">Recommended Next Steps:</h4>
+                      <p className="text-gray-700 leading-relaxed">{result.result.advice}</p>
+                    </div>
+                  )}
+                </>
+              )}
+
+              <div className="mt-8 flex justify-center space-x-4">
+                <button
+                  onClick={restartCurrentQuiz}
+                  className="px-6 py-3 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-ocean-600 transition-all duration-200"
+                >
+                  Retake Quiz
+                </button>
+                <button
+                  onClick={resetQuiz}
+                  className="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-300 transition-all duration-200"
+                >
+                  Try Another Quiz
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -469,12 +337,15 @@ const QuizPage: React.FC = () => {
     );
   }
 
+  // Quiz Taking View
+  const currentQuestionData = questions[currentQuestion];
+  const progress = ((currentQuestion + 1) / questions.length) * 100;
+
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <button 
+          <button
             onClick={resetQuiz}
             className="inline-flex items-center text-gray-600 hover:text-ocean-600 transition-colors duration-200"
           >
@@ -484,65 +355,70 @@ const QuizPage: React.FC = () => {
         </div>
       </header>
 
-      {/* Quiz Progress */}
-      <section className="bg-white py-6 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold text-gray-900">{currentQuiz?.title}</h1>
-            <span className="text-sm text-gray-500">
-              {currentQuestion + 1} of {currentQuiz?.questions.length}
-            </span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-gradient-to-r from-mint-500 to-ocean-500 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${((currentQuestion + 1) / (currentQuiz?.questions.length || 1)) * 100}%` }}
-            ></div>
-          </div>
-        </div>
-      </section>
-
-      {/* Question */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl p-8 shadow-lg">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-8">
-              {currentQuestionData?.question}
-            </h2>
-            
-            <div className="space-y-4 mb-8">
-              {currentQuestionData?.options.map((option) => (
-                <button
-                  key={option.id}
-                  onClick={() => handleAnswerSelect(option.id)}
-                  className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 ${
-                    answers[currentQuestionData.id] === option.id
-                      ? 'border-ocean-500 bg-ocean-50 text-ocean-700'
-                      : 'border-gray-200 hover:border-ocean-300 hover:bg-gray-50'
-                  }`}
-                >
-                  <div className="flex items-center">
-                    <div className={`w-4 h-4 rounded-full border-2 mr-3 ${
-                      answers[currentQuestionData.id] === option.id
-                        ? 'border-ocean-500 bg-ocean-500'
-                        : 'border-gray-300'
-                    }`}>
-                      {answers[currentQuestionData.id] === option.id && (
-                        <div className="w-full h-full rounded-full bg-white scale-50"></div>
-                      )}
-                    </div>
-                    <span className="font-medium">{option.text}</span>
-                  </div>
-                </button>
-              ))}
+        <div className="max-w-2xl mx-auto">
+          <div className={`bg-gradient-to-r ${currentQuiz.color_scheme} rounded-2xl p-8 text-white mb-8`}>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center">
+                <IconComponent className="h-8 w-8 mr-3" />
+                <h2 className="text-xl font-semibold">{currentQuiz.title}</h2>
+              </div>
+              <span className="text-sm opacity-90">
+                Question {currentQuestion + 1} of {questions.length}
+              </span>
             </div>
-            
+            <div className="w-full bg-white/20 rounded-full h-2">
+              <div
+                className="bg-white rounded-full h-2 transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-8 shadow-sm">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              {currentQuestionData.question}
+            </h3>
+
+            <div className="space-y-3 mb-8">
+              {currentQuestionData.options.map((option) => {
+                const isSelected = answers[currentQuestionData.id] === option.id;
+                
+                return (
+                  <button
+                    key={option.id}
+                    onClick={() => handleAnswerSelect(option.id)}
+                    className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 ${
+                      isSelected
+                        ? 'border-ocean-500 bg-ocean-50'
+                        : 'border-gray-200 hover:border-ocean-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <div
+                        className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center ${
+                          isSelected
+                            ? 'border-ocean-500 bg-ocean-500'
+                            : 'border-gray-300'
+                        }`}
+                      >
+                        {isSelected && (
+                          <div className="w-2 h-2 rounded-full bg-white" />
+                        )}
+                      </div>
+                      <span className="text-gray-900">{option.text}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
             <button
               onClick={handleNext}
-              disabled={!answers[currentQuestionData?.id || '']}
-              className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-ocean-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={!answers[currentQuestionData.id]}
+              className="w-full px-6 py-3 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-ocean-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {currentQuestion < (currentQuiz?.questions.length || 0) - 1 ? 'Next Question' : 'See Results'}
+              {currentQuestion < questions.length - 1 ? 'Next Question' : 'See Results'}
             </button>
           </div>
         </div>

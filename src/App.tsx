@@ -5,11 +5,14 @@ import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import BlogsPage from './pages/BlogsPage';
-import ArticlePage from './pages/ArticlePage';
+import BlogPostPage from './pages/BlogPostPage';
 import NewBlogPage from './pages/NewBlogPage';
 import QuizPage from './pages/QuizPage';
+import QuizzesPage from './pages/QuizzesPage';
+import QuizEditorPage from './pages/QuizEditorPage';
 import SimulationsPage from './pages/SimulationsPage';
 import SimulationPage from './pages/SimulationPage';
+import SimulationEditorPage from './pages/SimulationEditorPage';
 import NotFoundPage from './pages/NotFoundPage';
 import RequireAdmin from './components/admin/RequireAdmin';
 
@@ -22,12 +25,23 @@ function App() {
         <div className="pt-16">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            
+            {/* Blog Routes */}
             <Route path="/blogs" element={<BlogsPage />} />
             <Route path="/blogs/new" element={<RequireAdmin><NewBlogPage /></RequireAdmin>} />
-            <Route path="/blogs/:slug" element={<ArticlePage />} />
+            <Route path="/blogs/:slug" element={<BlogPostPage />} />
+            
+            {/* Quiz Routes */}
             <Route path="/quiz" element={<QuizPage />} />
+            <Route path="/quiz/:slug" element={<QuizPage />} />
+            <Route path="/quizzes" element={<QuizzesPage />} />
+            <Route path="/quizzes/:id/edit" element={<RequireAdmin><QuizEditorPage /></RequireAdmin>} />
+            
+            {/* Simulation Routes */}
             <Route path="/simulations" element={<SimulationsPage />} />
             <Route path="/simulations/:slug" element={<SimulationPage />} />
+            <Route path="/simulations/:slug/edit" element={<RequireAdmin><SimulationEditorPage /></RequireAdmin>} />
+            
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
