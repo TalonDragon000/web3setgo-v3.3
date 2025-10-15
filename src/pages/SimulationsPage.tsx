@@ -1,19 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Play, Zap, Plus, Edit as EditIcon } from 'lucide-react';
+import { ArrowLeft, Play, Zap } from 'lucide-react';
 import { useSimulations } from '../hooks/useSimulations';
-import { useAdmin } from '../contexts/AdminContext';
 
 const SimulationsPage: React.FC = () => {
   const { simulations, loading, error } = useSimulations();
-  const { isAdmin } = useAdmin();
 
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
       case 'Wallet':
         return <Zap className="h-16 w-16 text-white" />;
       default:
-        return <Zap className="h-16 w-16 text-white" />;
+        return <Play className="h-16 w-16 text-white" />;
     }
   };
 
@@ -76,17 +74,7 @@ const SimulationsPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="pb-20 px-4 sm:px-6 lg:px-8 relative">
-        {isAdmin && (
-          <Link
-            to="/simulations/new/edit"
-            className="fixed bottom-8 right-8 p-4 bg-ocean-500 text-white rounded-full shadow-lg hover:bg-ocean-600 hover:shadow-xl transition-all duration-200 z-40"
-            title="Create new simulation"
-          >
-            <Plus className="h-6 w-6" />
-          </Link>
-        )}
-
+      <section className="pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {loading ? (
             <div className="flex items-center justify-center py-20">
@@ -100,62 +88,45 @@ const SimulationsPage: React.FC = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {simulations.map((simulation, index) => (
-                <div
+                <Link
                   key={simulation.id}
-                  className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-slide-up relative"
+                  to={`/simulations/${simulation.slug}`}
+                  className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-slide-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <Link to={`/simulations/${simulation.slug}`}>
-                    <div className={`h-40 bg-gradient-to-r ${simulation.color_scheme} flex items-center justify-center relative`}>
-                      {getIconComponent(simulation.icon)}
-                      {!simulation.published && (
-                        <div className="absolute top-3 right-3 bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">
-                          Draft
-                        </div>
-                      )}
+                  <div className={`h-40 bg-gradient-to-r ${simulation.color_scheme} flex items-center justify-center`}>
+                    {getIconComponent(simulation.icon)}
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-medium text-ocean-600">
+                        {simulation.category}
+                      </span>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(simulation.difficulty)}`}>
+                        {simulation.difficulty}
+                      </span>
                     </div>
 
-                    <div className="p-6">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm font-medium text-ocean-600">
-                          {simulation.category}
-                        </span>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(simulation.difficulty)}`}>
-                          {simulation.difficulty}
-                        </span>
-                      </div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
+                      {simulation.title}
+                    </h3>
 
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
-                        {simulation.title}
-                      </h3>
+                    <p className="text-gray-600 mb-4 leading-relaxed">
+                      {simulation.description}
+                    </p>
 
-                      <p className="text-gray-600 mb-4 leading-relaxed">
-                        {simulation.description}
-                      </p>
-
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">
-                          {simulation.duration}
-                        </span>
-                        <span className="inline-flex items-center text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200">
-                          Start Simulation
-                          <Play className="h-4 w-4 ml-2" />
-                        </span>
-                      </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-500">
+                        {simulation.duration}
+                      </span>
+                      <span className="inline-flex items-center text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200">
+                        Start Simulation
+                        <Play className="h-4 w-4 ml-2" />
+                      </span>
                     </div>
-                  </Link>
-
-                  {isAdmin && (
-                    <Link
-                      to={`/simulations/${simulation.slug}/edit`}
-                      className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-ocean-500 hover:text-white transition-all duration-200 opacity-0 group-hover:opacity-100"
-                      title="Edit simulation"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <EditIcon className="h-4 w-4" />
-                    </Link>
-                  )}
-                </div>
+                  </div>
+                </Link>
               ))}
             </div>
           )}

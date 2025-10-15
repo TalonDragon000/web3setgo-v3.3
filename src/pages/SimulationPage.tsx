@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useSimulationBySlug } from '../hooks/useSimulationBySlug';
 import { SimulationProvider, useSimulationContext } from '../contexts/SimulationContext';
-import { getSimulationComponentByType } from '../components/simulations/SimulationRegistry';
+import WalletCreationSimulation from '../components/simulations/WalletCreationSimulation';
 
 const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlug }) => {
   const { simulation, loading } = useSimulationBySlug(simulationSlug);
@@ -175,42 +175,19 @@ const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlu
           </div>
 
           <div className="lg:col-span-2">
-            {(() => {
-              // Use component_type from database to get the correct component
-              const SimulationComponent = simulation.component_type ? getSimulationComponentByType(simulation.component_type) : null;
-
-              if (SimulationComponent) {
-                return (
-                  <SimulationComponent
-                    currentStep={state.currentStep}
-                    onStepComplete={(nextStep) => {
-                      if (nextStep >= simulation.steps.length) {
-                        handleComplete();
-                      } else {
-                        setCurrentStep(nextStep);
-                        setShowHint(false);
-                      }
-                    }}
-                  />
-                );
-              }
-
-              return (
-                <div className="bg-white rounded-2xl p-8 shadow-sm">
-                  <div className="text-center py-12">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accentYellow-100 mb-4">
-                      <span className="text-2xl">🚧</span>
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      Coming Soon
-                    </h3>
-                    <p className="text-gray-600 max-w-md mx-auto">
-                      This simulation is currently being developed. Check back soon to try it out!
-                    </p>
-                  </div>
-                </div>
-              );
-            })()}
+            {simulationSlug === 'create-your-first-wallet' && (
+              <WalletCreationSimulation
+                currentStep={state.currentStep}
+                onStepComplete={(nextStep) => {
+                  if (nextStep >= simulation.steps.length) {
+                    handleComplete();
+                  } else {
+                    setCurrentStep(nextStep);
+                    setShowHint(false);
+                  }
+                }}
+              />
+            )}
           </div>
         </div>
       </div>
