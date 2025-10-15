@@ -12,7 +12,6 @@ import QuizzesPage from './pages/QuizzesPage';
 import QuizEditorPage from './pages/QuizEditorPage';
 import SimulationsPage from './pages/SimulationsPage';
 import SimulationPage from './pages/SimulationPage';
-import SimulationEditorPage from './pages/SimulationEditorPage';
 import NotFoundPage from './pages/NotFoundPage';
 import RequireAdmin from './components/admin/RequireAdmin';
 
@@ -40,7 +39,6 @@ function App() {
             {/* Simulation Routes */}
             <Route path="/simulations" element={<SimulationsPage />} />
             <Route path="/simulations/:slug" element={<SimulationPage />} />
-            <Route path="/simulations/:slug/edit" element={<RequireAdmin><SimulationEditorPage /></RequireAdmin>} />
             
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

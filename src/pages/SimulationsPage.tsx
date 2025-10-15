@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Play, Zap, Plus, Edit as EditIcon } from 'lucide-react';
+import { ArrowLeft, Play, Zap } from 'lucide-react';
 import { useSimulations } from '../hooks/useSimulations';
-import { useAdmin } from '../contexts/AdminContext';
 
 const SimulationsPage: React.FC = () => {
   const { simulations, loading, error } = useSimulations();
-  const { isAdmin } = useAdmin();
 
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
@@ -77,16 +75,6 @@ const SimulationsPage: React.FC = () => {
       </section>
 
       <section className="pb-20 px-4 sm:px-6 lg:px-8 relative">
-        {isAdmin && (
-          <Link
-            to="/simulations/new/edit"
-            className="fixed bottom-8 right-8 p-4 bg-ocean-500 text-white rounded-full shadow-lg hover:bg-ocean-600 hover:shadow-xl transition-all duration-200 z-40"
-            title="Create new simulation"
-          >
-            <Plus className="h-6 w-6" />
-          </Link>
-        )}
-
         <div className="max-w-7xl mx-auto">
           {loading ? (
             <div className="flex items-center justify-center py-20">
@@ -144,17 +132,6 @@ const SimulationsPage: React.FC = () => {
                       </div>
                     </div>
                   </Link>
-
-                  {isAdmin && (
-                    <Link
-                      to={`/simulations/${simulation.slug}/edit`}
-                      className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-ocean-500 hover:text-white transition-all duration-200 opacity-0 group-hover:opacity-100"
-                      title="Edit simulation"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <EditIcon className="h-4 w-4" />
-                    </Link>
-                  )}
                 </div>
               ))}
             </div>

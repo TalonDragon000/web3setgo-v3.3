@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Check, Copy, Eye, EyeOff, Loader2, Sparkles } from 'lucide-react';
+import { useSimulationContext } from '../../contexts/SimulationContext';
 import {
   generateMockSeedPhrase,
   generateMockAddress,
@@ -13,8 +14,12 @@ interface WalletCreationSimulationProps {
 const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
   onComplete,
 }) => {
-  // Internal step management
-  const [currentStep, setCurrentStep] = useState(0);
+  const { state, setCurrentStep: setContextStep } = useSimulationContext();
+  const currentStep = state.currentStep;
+
+  const setCurrentStep = (step: number) => {
+    setContextStep(step);
+  };
   
   // Wallet data
   const [isGenerating, setIsGenerating] = useState(false);

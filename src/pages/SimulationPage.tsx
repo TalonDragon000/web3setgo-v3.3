@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useSimulationBySlug } from '../hooks/useSimulationBySlug';
 import { SimulationProvider, useSimulationContext } from '../contexts/SimulationContext';
-import { getSimulationComponentByType } from '../components/simulations/SimulationRegistry';
+import { getSimulationComponentByType, getSimulationStepMetadata, getSimulationStepCount } from '../components/simulations/SimulationRegistry';
 
 const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlug }) => {
   const { simulation, loading } = useSimulationBySlug(simulationSlug);
@@ -34,8 +34,10 @@ const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlu
     );
   }
 
-  const currentStepData = simulation.steps[state.currentStep];
-  const progress = ((state.currentStep + 1) / simulation.steps.length) * 100;
+  const steps = getSimulationStepMetadata(simulation.component_type);
+  const stepCount = getSimulationStepCount(simulation.component_type);
+  const currentStepData = steps[state.currentStep];
+  const progress = ((state.currentStep + 1) / stepCount) * 100;
 
   const handleComplete = () => {
     setIsComplete(true);
@@ -75,8 +77,8 @@ const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlu
             <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">What You Learned</h2>
               <div className="text-left space-y-3">
-                {simulation.steps.slice(0, -1).map((step, index) => (
-                  <div key={step.id} className="flex items-start">
+                {steps.slice(0, -1).map((step) => (
+                  <div key={step.step_order} className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-success-500 mr-3 mt-1 flex-shrink-0" />
                     <span className="text-gray-700">{step.title}</span>
                   </div>
@@ -119,7 +121,7 @@ const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlu
             </Link>
             <div className="flex items-center space-x-2">
               <span className="text-sm text-gray-500">
-                Step {state.currentStep + 1} of {simulation.steps.length}
+                Step {state.currentStep + 1} of {stepCount}
               </span>
             </div>
           </div>
@@ -164,11 +166,14 @@ const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlu
 
               {showHint && currentStepData?.hints && (
                 <div className="mt-4 p-4 bg-accentYellow-50 border border-accentYellow-200 rounded-lg">
-                  <p className="text-sm text-gray-700">
-                    {typeof currentStepData.hints === 'string'
-                      ? currentStepData.hints
-                      : currentStepData.hints[0]}
-                  </p>
+                  <div className="space-y-2">
+                    {currentStepData.hints.map((hint, index) => (
+                      <p key={index} className="text-sm text-gray-700">
+                        {currentStepData.hints.length > 1 && `${index + 1}. `}
+                        {hint}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -182,15 +187,7 @@ const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlu
               if (SimulationComponent) {
                 return (
                   <SimulationComponent
-                    currentStep={state.currentStep}
-                    onStepComplete={(nextStep) => {
-                      if (nextStep >= simulation.steps.length) {
-                        handleComplete();
-                      } else {
-                        setCurrentStep(nextStep);
-                        setShowHint(false);
-                      }
-                    }}
+                    onComplete={handleComplete}
                   />
                 );
               }

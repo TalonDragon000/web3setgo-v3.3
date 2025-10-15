@@ -9,6 +9,7 @@ interface Simulation {
   category: string;
   difficulty: string;
   duration: string;
+  component_type: string;
   order_index: number;
   icon: string;
   color_scheme: string;
