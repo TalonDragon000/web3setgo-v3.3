@@ -1,10 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Play, Zap } from 'lucide-react';
+import { ArrowLeft, Play, Zap, Lock } from 'lucide-react';
 import { useSimulations } from '../hooks/useSimulations';
+import '../styles/simulations.css';
 
 const SimulationsPage: React.FC = () => {
   const { simulations, loading, error } = useSimulations();
+
+  const sortedSimulations = React.useMemo(() => {
+    return [...simulations].sort((a, b) => {
+      if (a.coming_soon === b.coming_soon) {
+        return a.title.localeCompare(b.title);
+      }
+      return a.coming_soon ? 1 : -1;
+    });
+  }, [simulations]);
 
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
@@ -80,30 +90,32 @@ const SimulationsPage: React.FC = () => {
             <div className="flex items-center justify-center py-20">
               <div className="animate-spin rounded-full h-12 w-12 border-4 border-ocean-500 border-t-transparent"></div>
             </div>
-          ) : simulations.length === 0 ? (
+          ) : sortedSimulations.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-gray-600 text-lg mb-4">No simulations available yet.</p>
               <p className="text-gray-500">Check back soon for interactive learning experiences!</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {simulations.map((simulation, index) => (
+              {sortedSimulations.map((simulation, index) => (
                 <div
                   key={simulation.id}
-                  className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-slide-up relative"
+                  className={`group bg-white rounded-2xl overflow-hidden shadow-sm transition-all duration-300 animate-slide-up relative ${
+                    simulation.coming_soon ? 'card-coming-soon' : 'hover:shadow-xl'
+                  }`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <Link to={`/simulations/${simulation.slug}`}>
-                    <div className={`h-40 bg-gradient-to-r ${simulation.color_scheme} flex items-center justify-center relative`}>
-                      {getIconComponent(simulation.icon)}
-                      {!simulation.published && (
-                        <div className="absolute top-3 right-3 bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">
-                          Draft
-                        </div>
-                      )}
-                    </div>
+                  {simulation.coming_soon ? (
+                    <>
+                      <div className="coming-soon-badge">
+                        <Lock className="h-3 w-3" />
+                        Coming Soon
+                      </div>
+                      <div className={`h-40 bg-gradient-to-r ${simulation.color_scheme} flex items-center justify-center relative`}>
+                        {getIconComponent(simulation.icon)}
+                      </div>
 
-                    <div className="p-6">
+                      <div className="p-6">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-sm font-medium text-ocean-600">
                           {simulation.category}
@@ -121,17 +133,54 @@ const SimulationsPage: React.FC = () => {
                         {simulation.description}
                       </p>
 
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">
-                          {simulation.duration}
-                        </span>
-                        <span className="inline-flex items-center text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200">
-                          Start Simulation
-                          <Play className="h-4 w-4 ml-2" />
-                        </span>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-500">
+                            {simulation.duration}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
+                    </>
+                  ) : (
+                    <Link to={`/simulations/${simulation.slug}`}>
+                      <div className={`h-40 bg-gradient-to-r ${simulation.color_scheme} flex items-center justify-center relative`}>
+                        {getIconComponent(simulation.icon)}
+                        {!simulation.published && (
+                          <div className="absolute top-3 right-3 bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">
+                            Draft
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="p-6">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-sm font-medium text-ocean-600">
+                            {simulation.category}
+                          </span>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(simulation.difficulty)}`}>
+                            {simulation.difficulty}
+                          </span>
+                        </div>
+
+                        <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
+                          {simulation.title}
+                        </h3>
+
+                        <p className="text-gray-600 mb-4 leading-relaxed">
+                          {simulation.description}
+                        </p>
+
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-500">
+                            {simulation.duration}
+                          </span>
+                          <span className="inline-flex items-center text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200">
+                            Start Simulation
+                            <Play className="h-4 w-4 ml-2" />
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>

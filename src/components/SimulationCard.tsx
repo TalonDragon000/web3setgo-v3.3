@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Zap } from 'lucide-react';
+import { Play, Zap, Lock } from 'lucide-react';
+import '../styles/simulations.css';
 
 interface SimulationCardProps {
   slug: string;
@@ -10,6 +11,7 @@ interface SimulationCardProps {
   duration: string;
   colorScheme: string;
   icon: React.ReactElement;
+  comingSoon?: boolean;
 }
 
 const SimulationCard: React.FC<SimulationCardProps> = ({
@@ -19,7 +21,8 @@ const SimulationCard: React.FC<SimulationCardProps> = ({
   difficulty,
   duration,
   colorScheme= 'from-mint-500 to-ocean-500',
-  icon= <Zap className="h-12 w-12 text-white" />, 
+  icon= <Zap className="h-12 w-12 text-white" />,
+  comingSoon = false,
 }) => {
   const getDifficultyColor = (diff: string) => {
     switch (diff) {
@@ -34,16 +37,21 @@ const SimulationCard: React.FC<SimulationCardProps> = ({
     }
   };
 
-  return (
-    <Link
-      to={`/simulations/${slug}`}
-      className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
-    >
+  const cardContent = (
+    <>
+      {comingSoon && (
+        <div className="coming-soon-badge">
+          <Lock className="h-3 w-3" />
+          Coming Soon
+        </div>
+      )}
       <div className={`h-32 bg-gradient-to-r ${colorScheme} flex items-center justify-center relative`}>
         {icon}
-        <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
-          <span className="text-xs font-semibold text-white">PRACTICE</span>
-        </div>
+        {!comingSoon && (
+          <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+            <span className="text-xs font-semibold text-white">PRACTICE</span>
+          </div>
+        )}
       </div>
 
       <div className="p-6">
@@ -66,12 +74,31 @@ const SimulationCard: React.FC<SimulationCardProps> = ({
           <span className="text-xs text-gray-500 bg-blue-50 px-2 py-1 rounded">
             Interactive Simulation
           </span>
-          <span className="inline-flex items-center text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200 text-sm">
-            Try Now
-            <Play className="h-4 w-4 ml-1" />
-          </span>
+          {!comingSoon && (
+            <span className="inline-flex items-center text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200 text-sm">
+              Try Now
+              <Play className="h-4 w-4 ml-1" />
+            </span>
+          )}
         </div>
       </div>
+    </>
+  );
+
+  if (comingSoon) {
+    return (
+      <div className="group block bg-white rounded-2xl overflow-hidden shadow-sm transition-all duration-300 card-coming-soon">
+        {cardContent}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      to={`/simulations/${slug}`}
+      className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+    >
+      {cardContent}
     </Link>
   );
 };

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Plus, Edit as EditIcon } from 'lucide-react';
+import { ArrowLeft, Plus, Edit as EditIcon, Lock } from 'lucide-react';
 import { useQuizzes } from '../hooks/useQuizzes';
 import { useAdmin } from '../contexts/AdminContext';
 import * as Icons from 'lucide-react';
+import '../styles/simulations.css';
 
 const QuizzesPage: React.FC = () => {
   const { quizzes, loading, error } = useQuizzes();
@@ -12,9 +13,18 @@ const QuizzesPage: React.FC = () => {
 
   const types = ['all', 'knowledge', 'personality'];
 
-  const filteredQuizzes = selectedType === 'all'
-    ? quizzes
-    : quizzes.filter(quiz => quiz.quiz_type === selectedType);
+  const filteredQuizzes = React.useMemo(() => {
+    const filtered = selectedType === 'all'
+      ? quizzes
+      : quizzes.filter(quiz => quiz.quiz_type === selectedType);
+
+    return [...filtered].sort((a, b) => {
+      if (a.coming_soon === b.coming_soon) {
+        return a.title.localeCompare(b.title);
+      }
+      return a.coming_soon ? 1 : -1;
+    });
+  }, [quizzes, selectedType]);
 
   const getIconComponent = (iconName: string) => {
     const IconComponent = (Icons as any)[iconName];
@@ -124,15 +134,22 @@ const QuizzesPage: React.FC = () => {
                 return (
                   <div
                     key={quiz.id}
-                    className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 animate-slide-up relative"
+                    className={`group bg-white rounded-2xl overflow-hidden shadow-sm transition-all duration-300 animate-slide-up relative ${
+                      quiz.coming_soon ? 'card-coming-soon' : 'hover:shadow-xl'
+                    }`}
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <Link to={`/quiz/${quiz.slug}`} className="block">
-                      <div className={`h-32 bg-gradient-to-r ${quiz.color_scheme} flex items-center justify-center`}>
-                        <IconComponent className="h-16 w-16 text-white" />
-                      </div>
+                    {quiz.coming_soon ? (
+                      <>
+                        <div className="coming-soon-badge">
+                          <Lock className="h-3 w-3" />
+                          Coming Soon
+                        </div>
+                        <div className={`h-32 bg-gradient-to-r ${quiz.color_scheme} flex items-center justify-center`}>
+                          <IconComponent className="h-16 w-16 text-white" />
+                        </div>
 
-                      <div className="p-6">
+                        <div className="p-6">
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-xs font-medium px-2 py-1 rounded-full bg-ocean-100 text-ocean-700 capitalize">
                             {quiz.quiz_type}
@@ -148,17 +165,45 @@ const QuizzesPage: React.FC = () => {
                           {quiz.title}
                         </h3>
 
-                        <p className="text-gray-600 mb-4 leading-relaxed">
-                          {quiz.description}
-                        </p>
+                          <p className="text-gray-600 mb-4 leading-relaxed">
+                            {quiz.description}
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <Link to={`/quiz/${quiz.slug}`} className="block">
+                        <div className={`h-32 bg-gradient-to-r ${quiz.color_scheme} flex items-center justify-center`}>
+                          <IconComponent className="h-16 w-16 text-white" />
+                        </div>
 
-                        <span className="text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200">
-                          Take Quiz →
-                        </span>
-                      </div>
-                    </Link>
+                        <div className="p-6">
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-xs font-medium px-2 py-1 rounded-full bg-ocean-100 text-ocean-700 capitalize">
+                              {quiz.quiz_type}
+                            </span>
+                            {!quiz.published && (
+                              <span className="text-xs font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-700">
+                                Draft
+                              </span>
+                            )}
+                          </div>
 
-                    {isAdmin && (
+                          <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-ocean-600 transition-colors duration-200">
+                            {quiz.title}
+                          </h3>
+
+                          <p className="text-gray-600 mb-4 leading-relaxed">
+                            {quiz.description}
+                          </p>
+
+                          <span className="text-ocean-500 font-semibold group-hover:text-ocean-600 transition-colors duration-200">
+                            Take Quiz →
+                          </span>
+                        </div>
+                      </Link>
+                    )}
+
+                    {isAdmin && !quiz.coming_soon && (
                       <Link
                         to={`/quizzes/${quiz.id}/edit`}
                         className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-ocean-500 hover:text-white transition-all duration-200 opacity-0 group-hover:opacity-100"
