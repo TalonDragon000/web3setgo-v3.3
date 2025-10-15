@@ -11,7 +11,7 @@ const SimulationsPage: React.FC = () => {
       case 'Wallet':
         return <Zap className="h-16 w-16 text-white" />;
       default:
-        return <Play className="h-16 w-16 text-white" />;
+        return <Zap className="h-16 w-16 text-white" />;
     }
   };
 

@@ -48,24 +48,28 @@ const Navigation: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
+            {/*
             <Link
               to="/blogs"
               className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
             >
               Learn
             </Link>
+            */}
             <Link
               to="/simulations"
               className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
             >
               Simulations
             </Link>
+            {/*
             <Link
               to="/blogs"
               className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
             >
               Blog
             </Link>
+            */}
             <Link
               to="/quiz"
               className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
