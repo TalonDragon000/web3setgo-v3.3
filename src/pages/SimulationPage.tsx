@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useSimulationBySlug } from '../hooks/useSimulationBySlug';
 import { SimulationProvider, useSimulationContext } from '../contexts/SimulationContext';
+import { getSimulationComponentByType } from '../components/simulations/SimulationRegistry';
 
 const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlug }) => {
   const { simulation, loading } = useSimulationBySlug(simulationSlug);
@@ -176,9 +177,8 @@ const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlu
           <div className="lg:col-span-2">
             {(() => {
               // Use component_type from database to get the correct component
-              const SimulationComponent = simulation.component_type 
-                ? require('../components/simulations/SimulationRegistry').getSimulationComponentByType(simulation.component_type)
-                : null;
+              // Use component_type from database to get the correct component
+              const SimulationComponent = simulation.component_type ?getSimulationComponentByType(simulation.component_type) : null;
 
               if (SimulationComponent) {
                 return (
