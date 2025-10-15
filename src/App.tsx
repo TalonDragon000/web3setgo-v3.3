@@ -31,8 +31,8 @@ function App() {
             <Route path="/blogs/:slug" element={<BlogPostPage />} />
             
             {/* Quiz Routes */}
-            <Route path="/quiz" element={<QuizFunPage />} />
-            <Route path="/quiz/:slug" element={<QuizFunPage />} />
+            <Route path="/quiz" element={<QuizPage />} />
+            <Route path="/quiz/:slug" element={<QuizPage />} />
             <Route path="/quizzes" element={<QuizzesPage />} />
             <Route path="/quizzes/:id/edit" element={<RequireAdmin><QuizEditorPage /></RequireAdmin>} />
             

@@ -94,7 +94,6 @@ export interface Database {
           result_categories: Json
           slug: string | null
           order_index: number
-          coming_soon: boolean
           created_at: string
           updated_at: string
         }
@@ -112,7 +111,6 @@ export interface Database {
           result_categories?: Json
           slug?: string | null
           order_index?: number
-          coming_soon?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -130,7 +128,6 @@ export interface Database {
           result_categories?: Json
           slug?: string | null
           order_index?: number
-          coming_soon?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -149,7 +146,6 @@ export interface Database {
           color_scheme: string
           order_index: number
           published: boolean
-          coming_soon: boolean
           created_at: string
           updated_at: string
         }
@@ -166,7 +162,6 @@ export interface Database {
           color_scheme?: string
           order_index?: number
           published?: boolean
-          coming_soon?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -183,7 +178,6 @@ export interface Database {
           color_scheme?: string
           order_index?: number
           published?: boolean
-          coming_soon?: boolean
           created_at?: string
           updated_at?: string
         }
