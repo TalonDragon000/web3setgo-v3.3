@@ -177,8 +177,7 @@ const SimulationContent: React.FC<{ simulationSlug: string }> = ({ simulationSlu
           <div className="lg:col-span-2">
             {(() => {
               // Use component_type from database to get the correct component
-              // Use component_type from database to get the correct component
-              const SimulationComponent = simulation.component_type ?getSimulationComponentByType(simulation.component_type) : null;
+              const SimulationComponent = simulation.component_type ? getSimulationComponentByType(simulation.component_type) : null;
 
               if (SimulationComponent) {
                 return (
