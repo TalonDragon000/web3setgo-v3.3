@@ -1,32 +1,22 @@
 const WORD_LIST = [
-  // --- A words (50) ---
   'abandon', 'ability', 'able', 'about', 'above', 'absent', 'absorb', 'abstract',
-  'absurd', 'abuse', 'access', 'account', 'accuse', 'achieve', 'acquire', 'across',
-  'act', 'action', 'actor', 'actual', 'adapt', 'add', 'address', 'adjust',
-  'admit', 'adult', 'advance', 'advice', 'afford', 'afraid', 'again', 'age',
-  'agent', 'agree', 'ahead', 'aim', 'air', 'airport', 'alarm', 'album',
-  'alert', 'alien', 'allow', 'almost', 'alone', 'alpha', 'already', 'also',
-  'alter', 'always',
-
-  // --- B words (50) ---
-  'baby', 'bachelor', 'bacon', 'badge', 'bag', 'balance', 'ball', 'bamboo',
-  'banana', 'bar', 'barely', 'bargain', 'base', 'basic', 'basket', 'battle',
-  'beach', 'bean', 'beauty', 'become', 'before', 'begin', 'behind', 'believe',
-  'below', 'benefit', 'best', 'between', 'bicycle', 'bike', 'bird', 'birth',
-  'black', 'blade', 'blanket', 'blast', 'blend', 'blind', 'blood', 'blue',
-  'board', 'boat', 'body', 'boil', 'book', 'boss', 'bottom', 'bounce',
-  'box', 'boy',
-
-  // --- C words (50) ---
-  'cabin', 'cable', 'cactus', 'cake', 'call', 'calm', 'camera', 'camp',
-  'can', 'canal', 'cancel', 'candy', 'canoe', 'canvas', 'capital', 'captain',
-  'car', 'carbon', 'card', 'cargo', 'carpet', 'carry', 'cart', 'case',
-  'cash', 'castle', 'cat', 'catch', 'cause', 'cave', 'ceiling', 'cell',
-  'century', 'certain', 'chair', 'chalk', 'change', 'charge', 'chase', 'chat',
-  'cheap', 'check', 'cheese', 'chef', 'cherry', 'chest', 'chicken', 'chief',
-  'child', 'choice'
+  'absurd', 'abuse', 'access', 'accident', 'account', 'accuse', 'achieve', 'acid',
+  'acoustic', 'acquire', 'across', 'act', 'action', 'actor', 'actress', 'actual',
+  'adapt', 'add', 'addict', 'address', 'adjust', 'admit', 'adult', 'advance',
+  'advice', 'aerobic', 'affair', 'afford', 'afraid', 'again', 'age', 'agent',
+  'agree', 'ahead', 'aim', 'air', 'airport', 'aisle', 'alarm', 'album',
+  'alcohol', 'alert', 'alien', 'all', 'alley', 'allow', 'almost', 'alone',
+  'alpha', 'already', 'also', 'alter', 'always', 'amateur', 'amazing', 'among',
+  'amount', 'amused', 'analyst', 'anchor', 'ancient', 'anger', 'angle', 'angry',
+  'animal', 'ankle', 'announce', 'annual', 'another', 'answer', 'antenna', 'antique',
+  'anxiety', 'any', 'apart', 'apology', 'appear', 'apple', 'approve', 'april',
+  'arch', 'arctic', 'area', 'arena', 'argue', 'arm', 'armed', 'armor',
+  'army', 'around', 'arrange', 'arrest', 'arrive', 'arrow', 'art', 'artefact',
+  'artist', 'artwork', 'ask', 'aspect', 'assault', 'asset', 'assist', 'assume',
+  'asthma', 'athlete', 'atom', 'attack', 'attend', 'attitude', 'attract', 'auction',
+  'audit', 'august', 'aunt', 'author', 'auto', 'autumn', 'average', 'avocado',
+  'avoid', 'awake', 'aware', 'away', 'awesome', 'awful', 'awkward', 'axis'
 ];
-
 
 export const generateMockSeedPhrase = (): string[] => {
   const seedPhrase: string[] = [];
