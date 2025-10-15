@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Check, Copy, Eye, EyeOff, Loader2, Sparkles } from 'lucide-react';
-import { useSimulationContext } from '../../contexts/SimulationContext';
 import {
   generateMockSeedPhrase,
   generateMockAddress,
   shortenAddress,
-  formatMockBalance,
 } from '../../utils/walletGenerator';
 
 interface WalletCreationSimulationProps {
-  currentStep: number;
-  onStepComplete: (nextStep: number) => void;
+  onComplete: () => void;
 }
 
 const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
-  currentStep,
-  onStepComplete,
+  onComplete,
 }) => {
-  const { state, setWalletData } = useSimulationContext();
+  // Internal step management
+  const [currentStep, setCurrentStep] = useState(0);
+  
+  // Wallet data
   const [isGenerating, setIsGenerating] = useState(false);
   const [seedPhrase, setSeedPhrase] = useState<string[]>([]);
   const [address, setAddress] = useState('');
@@ -55,9 +54,9 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
     }
   }, [currentStep, seedPhrase]);
 
-  const generateWordOptions = (correctIndex: number): string[] => {
+/*   const generateWordOptions = (correctIndex: number): string[] => {
     if (seedPhrase.length === 0) return [];
-
+    
     const correctWord = seedPhrase[correctIndex];
     const otherIndices = seedPhrase
       .map((_, idx) => idx)
@@ -72,10 +71,10 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
     ];
 
     return options.sort(() => Math.random() - 0.5);
-  };
+  }; */
 
   const handleWelcome = () => {
-    onStepComplete(currentStep + 1);
+    setCurrentStep(currentStep + 1);
   };
 
   const handleGenerate = async () => {
@@ -85,25 +84,17 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
 
     const mockSeedPhrase = generateMockSeedPhrase();
     const mockAddress = generateMockAddress();
-    const mockBalance = formatMockBalance();
 
     setSeedPhrase(mockSeedPhrase);
     setAddress(mockAddress);
 
-    setWalletData({
-      address: mockAddress,
-      privateKey: '',
-      seedPhrase: mockSeedPhrase,
-      balance: mockBalance,
-    });
-
     setIsGenerating(false);
-    onStepComplete(currentStep + 1);
+    setCurrentStep(currentStep + 1);
   };
 
   const handleBackupConfirm = () => {
     setShowSeedPhrase(true);
-    onStepComplete(currentStep + 1);
+    setCurrentStep(currentStep + 1);
   };
 
   const handleWordSelect = (index: number, word: string) => {
@@ -118,7 +109,7 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
     if (isCorrect) {
       setVerificationComplete(true);
       setTimeout(() => {
-        onStepComplete(currentStep + 1);
+        setCurrentStep(currentStep + 1);
       }, 1000);
     }
   };
@@ -128,16 +119,16 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
-      onStepComplete(currentStep + 1);
+      setCurrentStep(currentStep + 1);
     }, 1000);
   };
 
   const handleSecurityComplete = () => {
-    onStepComplete(currentStep + 1);
+    setCurrentStep(currentStep + 1);
   };
 
   const handleFinalComplete = () => {
-    onStepComplete(currentStep + 1);
+    onComplete();
   };
 
   if (currentStep === 0) {
@@ -418,7 +409,7 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
 
         {copied && (
           <button
-            onClick={() => onStepComplete(currentStep + 1)}
+            onClick={() => setCurrentStep(currentStep + 1)}
             className="w-full py-4 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-ocean-600 transition-all duration-200"
           >
             Continue
