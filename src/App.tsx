@@ -8,8 +8,6 @@ import BlogsPage from './pages/BlogsPage';
 import BlogPostPage from './pages/BlogPostPage';
 import NewBlogPage from './pages/NewBlogPage';
 import QuizPage from './pages/QuizPage';
-import QuizzesPage from './pages/QuizzesPage';
-import QuizEditorPage from './pages/QuizEditorPage';
 import SimulationsPage from './pages/SimulationsPage';
 import SimulationPage from './pages/SimulationPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -33,8 +31,6 @@ function App() {
             {/* Quiz Routes */}
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/quiz/:slug" element={<QuizPage />} />
-            <Route path="/quizzes" element={<QuizzesPage />} />
-            <Route path="/quizzes/:id/edit" element={<RequireAdmin><QuizEditorPage /></RequireAdmin>} />
             
             {/* Simulation Routes */}
             <Route path="/simulations" element={<SimulationsPage />} />

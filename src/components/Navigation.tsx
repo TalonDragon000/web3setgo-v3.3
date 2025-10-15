@@ -77,13 +77,6 @@ const Navigation: React.FC = () => {
                 {showAdminDropdown && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                     <Link
-                      to="/quizzes"
-                      onClick={() => setShowAdminDropdown(false)}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-ocean-50 hover:text-ocean-600"
-                    >
-                      Manage Quizzes
-                    </Link>
-                    <Link
                       to="/simulations"
                       onClick={() => setShowAdminDropdown(false)}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-ocean-50 hover:text-ocean-600"
@@ -143,14 +136,6 @@ const Navigation: React.FC = () => {
               {isAdmin && (
                 <>
                   <div className="border-t border-gray-200 my-2"></div>
-                  <Link
-                    to="/quizzes"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200 flex items-center gap-2"
-                  >
-                    <Settings className="h-4 w-4" />
-                    Manage Quizzes
-                  </Link>
                   <Link
                     to="/simulations"
                     onClick={() => setIsMobileMenuOpen(false)}
