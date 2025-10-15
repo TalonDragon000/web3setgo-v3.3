@@ -2,8 +2,7 @@ import React from 'react';
 import WalletCreationSimulation from './WalletCreationSimulation';
 
 interface SimulationComponentProps {
-  currentStep: number;
-  onStepComplete: (nextStep: number) => void;
+  onComplete: () => void;
 }
 
 type SimulationComponent = React.FC<SimulationComponentProps>;
