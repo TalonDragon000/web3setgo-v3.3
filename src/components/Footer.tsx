@@ -68,7 +68,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <button
-                  onClick={() => scrollToSection('how-it-works')}
+                  onClick={() => scrollToSection('sims')}
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   How It Works
@@ -82,40 +82,16 @@ const Footer: React.FC = () => {
                   Blog Center
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h3 className="font-semibold text-white mb-4">Resources</h3>
-            <ul className="space-y-2">
-              <li>
+             <li>
                 <Link
-                  to="/blogs/what-is-a-wallet"
+                  to="/quiz"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  What is a Wallet?
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/blogs/web2-vs-web3-explained"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Web2 vs Web3
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/blogs/why-people-talk-about-blockchains"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  About Blockchains
+                  Quizzes
                 </Link>
               </li>
             </ul>
           </div>
-        </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
