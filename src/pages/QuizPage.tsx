@@ -136,7 +136,6 @@ const QuizPage: React.FC = () => {
                 <ArrowLeft className="h-5 w-5 mr-2" />
                 Back to Home
               </Link>
-
               <div className="flex items-center space-x-2">
                 <BookOpen className="h-6 w-6 text-ocean-500" />
                 <span className="text-xl font-semibold text-gray-900">Quizzes</span>
