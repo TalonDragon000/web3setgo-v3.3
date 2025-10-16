@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
     <>
       <Hero />
       <WhyLearnWithUs />
-      <HowItWorks />
+      {/*<HowItWorks />*/}
       <SimulationsSection />
       <ResourceHub />
       <QuizSection />
