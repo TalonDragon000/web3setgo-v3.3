@@ -294,6 +294,7 @@ const QuizPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="bg-white shadow-sm border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Link
               to="/"
@@ -303,6 +304,7 @@ const QuizPage: React.FC = () => {
               Back to Quizzes
             </Link>
           </div>
+        </div>
       </header>
 
       <section className="py-16 px-4 sm:px-6 lg:px-8">
