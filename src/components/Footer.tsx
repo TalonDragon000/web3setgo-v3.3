@@ -71,12 +71,12 @@ const Footer: React.FC = () => {
                   onClick={() => scrollToSection('sims')}
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  How It Works
+                  Simulations
                 </button>
               </li>
               <li>
                 <Link
-                  to="/blogs"
+                  to="/resource-hub"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   Blog Center
