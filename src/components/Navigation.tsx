@@ -9,19 +9,6 @@ const Navigation: React.FC = () => {
   const location = useLocation();
   const { isAdmin } = useAdmin();
 
-  /*
-  const scrollToSection = (sectionId: string) => {
-    // If not on homepage, navigate to homepage first
-    if (location.pathname !== '/') {
-      window.location.href = `/#${sectionId}`;
-    } else {
-      const element = document.getElementById(sectionId);
-      element?.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMobileMenuOpen(false);
-  };
-  */
-
   const scrollToTop = () => {
     // If not on homepage, navigate to homepage
     if (location.pathname !== '/') {
@@ -76,13 +63,6 @@ const Navigation: React.FC = () => {
                 </button>
                 {showAdminDropdown && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                    <Link
-                      to="/simulations"
-                      onClick={() => setShowAdminDropdown(false)}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-ocean-50 hover:text-ocean-600"
-                    >
-                      Manage Simulations
-                    </Link>
                     <Link
                       to="/blogs"
                       onClick={() => setShowAdminDropdown(false)}
