@@ -75,20 +75,20 @@ const Footer: React.FC = () => {
                 </button>
               </li>
               <li>
-                <Link
-                  to="/resource-hub"
+                <button
+                  onClick={() => scrollToSection('resource-hub')}
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  Blog Center
-                </Link>
+                  Blogs
+                </button>
               </li>
              <li>
-                <Link
-                  to="/quiz-section"
+                <button
+                  onClick={() => scrollToSection('quiz-section')}
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   Quizzes
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
