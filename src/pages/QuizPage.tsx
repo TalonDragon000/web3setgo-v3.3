@@ -126,16 +126,23 @@ const QuizPage: React.FC = () => {
   if (!slug) {
     return (
       <div className="min-h-screen bg-slate-50">
-        <header className="bg-white shadow-sm border-b border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <header className="bg-white shadow-sm border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
             <Link
               to="/"
-              className="inline-flex items-center text-gray-600 hover:text-ocean-600 transition-colors duration-200"
+              className="inline-flex items-center text-gray-600 hover:text-primary-500 transition-colors duration-200"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Back to Home
             </Link>
+
+            <div className="flex items-center space-x-2">
+              <Target className="h-6 w-6 text-ocean-500" />
+              <span className="text-xl font-semibold text-gray-900">Quizzes</span>
+            </div>
           </div>
+        </div>
         </header>
 
         <section className="bg-gradient-to-b from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
@@ -295,6 +302,12 @@ const QuizPage: React.FC = () => {
               <ArrowLeft className="h-5 w-5 mr-2" />
               Back to Quizzes
             </Link>
+
+            <div className="flex items-center space-x-2">
+              <Target className="h-6 w-6 text-ocean-500" />
+              <span className="text-xl font-semibold text-gray-900">Quizzes</span>
+            </div>
+          </div>
       </header>
 
       <section className="py-16 px-4 sm:px-6 lg:px-8">
