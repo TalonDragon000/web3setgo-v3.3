@@ -297,7 +297,7 @@ const QuizPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Link
-              to="/"
+              to="/quiz"
               className="inline-flex items-center text-gray-600 hover:text-primary-500 transition-colors duration-200"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
