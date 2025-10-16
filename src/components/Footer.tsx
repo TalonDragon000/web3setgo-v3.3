@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
               </li>
              <li>
                 <Link
-                  to="/quiz"
+                  to="/quiz-section"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   Quizzes
