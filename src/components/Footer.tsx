@@ -66,13 +66,6 @@ const Footer: React.FC = () => {
                   Simulations
                 </button>
               </li>
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h3 className="font-semibold text-white mb-4"></h3>
-            <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => scrollToSection('resource-hub')}
@@ -88,6 +81,21 @@ const Footer: React.FC = () => {
                 >
                   Quizzes
                 </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Socials */}
+          <div>
+            <h3 className="font-semibold text-white mb-4">Socials</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  to="https://x.com/Web3SetGo"
+                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                >
+                  Twitter / X
+                </Link>
               </li>
             </ul>
           </div>
