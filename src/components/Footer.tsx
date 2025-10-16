@@ -132,7 +132,6 @@ const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
-        </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
