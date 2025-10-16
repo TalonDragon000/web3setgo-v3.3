@@ -66,6 +66,13 @@ const Footer: React.FC = () => {
                   Simulations
                 </button>
               </li>
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h3 className="font-semibold text-white mb-4"></h3>
+            <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => scrollToSection('resource-hub')}
