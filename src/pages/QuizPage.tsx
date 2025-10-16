@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Target } from 'lucide-react';
 import * as Icons from 'lucide-react';
 import { quizMetadata } from '../data/quizzes/quizMetadata';
 
