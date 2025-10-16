@@ -132,7 +132,7 @@ const QuizPage: React.FC = () => {
               <Link 
                 to="/"
                 className="inline-flex items-center text-gray-600 hover:text-primary-500 transition-colors duration-200"
-              >
+                >
                 <ArrowLeft className="h-5 w-5 mr-2" />
                 Back to Home
               </Link>
@@ -142,6 +142,7 @@ const QuizPage: React.FC = () => {
                 <span className="text-xl font-semibold text-gray-900">Quizzes</span>
               </div>
             </div>
+          </div>
         </header>
 
         <section className="bg-gradient-to-b from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
