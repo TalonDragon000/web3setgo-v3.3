@@ -307,7 +307,6 @@ const QuizPage: React.FC = () => {
               <span className="text-xl font-semibold text-gray-900">Quizzes</span>
             </div>
           </div>
-        </div>
       </header>
 
       <section className="py-16 px-4 sm:px-6 lg:px-8">
