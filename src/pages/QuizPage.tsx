@@ -147,6 +147,9 @@ const QuizPage: React.FC = () => {
 
         <section className="bg-gradient-to-b from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center justify-center p-3 bg-gradient-to-r from-mint-100 to-ocean-100 rounded-full mb-6">
+            <Target className="h-8 w-8 text-ocean-600" />
+          </div>
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
               Discover Your Web3 Path
             </h1>
