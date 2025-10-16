@@ -21,6 +21,13 @@ const SimulationsSection: React.FC = () => {
           </p>
         </div>
 
+        <div className="mt-12 bg-blue-50 border-l-4 border-ocean-500 p-6 rounded-r-lg max-w-3xl mx-auto">
+          <p className="text-sm text-gray-700">
+            <strong className="font-semibold text-ocean-700">Safe Practice Environment:</strong> All simulations use fake data and don't connect to real blockchains. Practice as much as you want without any financial risk!
+          </p>
+        </div>
+      </div>
+
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-ocean-500 border-t-transparent"></div>
@@ -63,13 +70,6 @@ const SimulationsSection: React.FC = () => {
             )}
           </>
         )}
-
-        <div className="mt-12 bg-blue-50 border-l-4 border-ocean-500 p-6 rounded-r-lg max-w-3xl mx-auto">
-          <p className="text-sm text-gray-700">
-            <strong className="font-semibold text-ocean-700">Safe Practice Environment:</strong> All simulations use fake data and don't connect to real blockchains. Practice as much as you want without any financial risk!
-          </p>
-        </div>
-      </div>
     </section>
   );
 };
