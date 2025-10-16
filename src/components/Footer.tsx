@@ -94,6 +94,46 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
+                  {/* Quick Links */}
+          <div>
+            <h3 className="font-semibold text-white mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              <li>
+                <button
+                  onClick={() => scrollToSection('why-learn')}
+                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                >
+                  Why Learn Web3
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => scrollToSection('sims')}
+                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                >
+                  Simulations
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => scrollToSection('resource-hub')}
+                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                >
+                  Blogs
+                </button>
+              </li>
+             <li>
+                <button
+                  onClick={() => scrollToSection('quiz-section')}
+                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                >
+                  Quizzes
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-sm">
