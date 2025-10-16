@@ -54,8 +54,8 @@ const FinalCTA: React.FC = () => {
             <div className="text-sm">Risk-Free</div>
           </div>
         </div>
+        */}
       </div>
-      */}
     </section>
   );
 };
