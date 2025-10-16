@@ -147,7 +147,7 @@ const WalletCreationSimulation: React.FC<WalletCreationSimulationProps> = ({
             Ready to Create Your First Wallet?
           </h2>
           <p className="text-lg text-gray-600 mb-6">
-            This interactive simulation will guide you through every step of creating a Web3 wallet safely.
+            This interactive simulation will guide you through every step of creating a crypto wallet safely.
           </p>
           <div className="bg-blue-50 border-l-4 border-ocean-500 p-4 rounded-r-lg text-left max-w-lg mx-auto mb-8">
             <p className="text-sm text-gray-700">
