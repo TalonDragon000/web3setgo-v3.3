@@ -295,12 +295,6 @@ const QuizPage: React.FC = () => {
               <ArrowLeft className="h-5 w-5 mr-2" />
               Back to Quizzes
             </Link>
-
-            <div className="flex items-center space-x-2">
-              <Target className="h-6 w-6 text-ocean-500" />
-              <span className="text-xl font-semibold text-gray-900">Quizzes</span>
-            </div>
-          </div>
       </header>
 
       <section className="py-16 px-4 sm:px-6 lg:px-8">
