@@ -92,7 +92,6 @@ const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
-        </div>
 
                   {/* Quick Links */}
           <div>
