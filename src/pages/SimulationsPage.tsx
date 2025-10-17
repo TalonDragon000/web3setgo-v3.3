@@ -42,20 +42,27 @@ const SimulationsPage: React.FC = () => {
     <div className="min-h-screen bg-slate-50">
       <header className="bg-white shadow-sm border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link
-            to="/"
-            className="inline-flex items-center text-gray-600 hover:text-ocean-600 transition-colors duration-200"
-          >
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            Back to Home
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link
+              to="/"
+              className="inline-flex items-center text-gray-600 hover:text-primary-500 transition-colors duration-200"
+            >
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              Back to Home
+            </Link>
+
+            <div className="flex items-center space-x-2">
+              <Zap className="h-6 w-6 text-ocean-500" />
+              <span className="text-xl font-semibold text-gray-900">Sims</span>
+            </div>
+          </div>
         </div>
       </header>
 
       <section className="bg-gradient-to-b from-white to-slate-50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center justify-center p-3 bg-gradient-to-r from-mint-100 to-ocean-100 rounded-full mb-6">
-            <Play className="h-8 w-8 text-ocean-600" />
+            <Zap className="h-8 w-8 text-ocean-600" />
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
             Interactive Web3 Simulations

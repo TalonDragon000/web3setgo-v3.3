@@ -60,57 +60,49 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <button
-                  onClick={() => scrollToSection('why-learn')}
+                  onClick={() => scrollToSection('sims')}
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  Why Learn Web3
+                  Simulations
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => scrollToSection('how-it-works')}
+                  onClick={() => scrollToSection('resource-hub')}
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  How It Works
+                  Blogs
                 </button>
               </li>
-              <li>
-                <Link
-                  to="/blogs"
+             <li>
+                <button
+                  onClick={() => scrollToSection('quiz-section')}
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  Blog Center
-                </Link>
+                  Quizzes
+                </button>
               </li>
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Socials */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Resources</h3>
+            <h3 className="font-semibold text-white mb-4">Socials</h3>
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/blogs/what-is-a-wallet"
+                  to="https://x.com/Web3SetGo"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  What is a Wallet?
+                  Twitter / X
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/blogs/web2-vs-web3-explained"
+                  to="https://github.com/TalonDragon000/web3setgo-v3.1"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  Web2 vs Web3
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/blogs/why-people-talk-about-blockchains"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  About Blockchains
+                  Github
                 </Link>
               </li>
             </ul>
@@ -120,7 +112,7 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-sm">
-            © 2025 Web3SetGo! v0.3.1 All rights reserved.
+            © 2025 Web3SetGo! v3.3.0 All rights reserved.
           </p>
           <p className="text-gray-400 text-sm flex items-center">
             Made with <Heart className="h-4 w-4 mx-1 text-blue-500" /> for Web3 learners

@@ -45,11 +45,11 @@ const Hero: React.FC = () => {
               
               
               <button 
-                onClick={() => scrollToSection('how-it-works')}
+                onClick={() => scrollToSection('why-learn')}
                 className="inline-flex items-center px-8 py-4 bg-white text-ocean-600 font-semibold rounded-xl border-2 border-ocean-500 hover:bg-ocean-50 transition-colors duration-200"
               >
                 <Play className="mr-2 h-5 w-5" />
-                See How It Works
+                Why Learn With Us?
               </button>
             </div>
           </div>

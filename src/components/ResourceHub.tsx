@@ -23,9 +23,6 @@ const ResourceHub: React.FC = () => {
     <section id="resource-hub" className="py-20 bg-gradient-to-b from-slate-50 to-white px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center p-3 bg-gradient-to-r from-mint-100 to-ocean-100 rounded-full mb-4">
-            <BookOpen className="h-6 w-6 text-ocean-600" />
-          </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Latest from Our Blog
           </h2>

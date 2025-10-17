@@ -13,9 +13,9 @@ const HomePage: React.FC = () => {
     <>
       <Hero />
       <WhyLearnWithUs />
-      <HowItWorks />
-      <SimulationsSection />
+      {/*<HowItWorks />*/}
       <ResourceHub />
+      <SimulationsSection />
       <QuizSection />
       {/* <Testimonials /> */}
       <FinalCTA />
