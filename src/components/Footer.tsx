@@ -99,7 +99,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link
-                  to="https://github.com/TalonDragon000/web3setgo-v3.1"
+                  to="https://github.com/TalonDragon000/web3setgo-v3.3"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   Github
