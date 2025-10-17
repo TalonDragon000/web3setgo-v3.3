@@ -1,5 +1,7 @@
 # Web3SetGo
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/abb35b5c-ddb0-4085-847f-299b9caa83bc/deploy-status)](https://app.netlify.com/projects/web3setgo/deploys)
+
 A modern, interactive educational platform designed to teach Web3 concepts in a safe, simple, and engaging way. Built with React, TypeScript, and Tailwind CSS.
 
 <img width="1229" height="670" alt="image" src="https://github.com/user-attachments/assets/4d7b8d99-ae48-4152-a501-717eac933143" />
