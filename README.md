@@ -228,6 +228,4 @@ For questions, issues, or suggestions:
 
 Built with modern web technologies and a focus on education, accessibility, and user experience.
 
----
-
-**Happy Learning! 🚀**
+Happy Learning! 🚀
