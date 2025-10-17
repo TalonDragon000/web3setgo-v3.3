@@ -4,7 +4,8 @@
 
 A modern, interactive educational platform designed to teach Web3 concepts in a safe, simple, and engaging way. Built with React, TypeScript, and Tailwind CSS.
 
-<img width="1229" height="670" alt="image" src="https://github.com/user-attachments/assets/4d7b8d99-ae48-4152-a501-717eac933143" />
+<img width="1280" height="676" alt="image" src="https://github.com/user-attachments/assets/6d95a2e1-a881-4d50-ba52-181c30c5d6ed" />
+
 
 
 ## About the Project
