@@ -23,6 +23,9 @@ export interface Database {
           type: string
           order_index: number | null
           published: boolean
+          footer_enabled: boolean | null
+          footer_type: string | null
+          footer_target_slug: string | null
           created_at: string
           updated_at: string
         }
@@ -39,6 +42,9 @@ export interface Database {
           type?: string
           order_index?: number | null
           published?: boolean
+          footer_enabled?: boolean | null
+          footer_type?: string | null
+          footer_target_slug?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -55,6 +61,9 @@ export interface Database {
           type?: string
           order_index?: number | null
           published?: boolean
+          footer_enabled?: boolean | null
+          footer_type?: string | null
+          footer_target_slug?: string | null
           created_at?: string
           updated_at?: string
         }

@@ -7,9 +7,12 @@ import { useBlogBySlug } from '../hooks/useBlogBySlug';
 import { useBlogMutations } from '../hooks/useBlogMutations';
 import { useToast } from '../hooks/useToast';
 import { useAdmin } from '../contexts/AdminContext';
+import { usePublishedBlogs } from '../hooks/usePublishedBlogs';
+import { usePublishedSimulations } from '../hooks/usePublishedSimulations';
 import MarkdownEditor from '../components/MarkdownEditor';
 import Toast from '../components/Toast';
 import AdminLogin from '../components/admin/AdminLogin';
+import BlogFooterCTA from '../components/BlogFooterCTA';
 import { slugify } from '../utils/slugify';
 import { calculateReadTime } from '../utils/readTime';
 import BlogDefaultImage from '../components/BlogDefaultImage';
@@ -22,6 +25,8 @@ const ArticlePage: React.FC = () => {
   const { updateBlog, deleteBlog, checkSlugExists, loading: mutationLoading } = useBlogMutations();
   const { toasts, showToast, removeToast } = useToast();
   const { isAdmin } = useAdmin();
+  const { blogs: publishedBlogs } = usePublishedBlogs();
+  const { simulations: publishedSimulations } = usePublishedSimulations();
 
   const [isEditing, setIsEditing] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -36,6 +41,9 @@ const ArticlePage: React.FC = () => {
     image_url: '',
     published: true,
     slug: '',
+    footer_enabled: false,
+    footer_type: null as 'blog' | 'sim' | null,
+    footer_target_slug: null as string | null,
   });
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -53,6 +61,9 @@ const ArticlePage: React.FC = () => {
         image_url: blog.image_url,
         published: blog.published,
         slug: blog.slug,
+        footer_enabled: blog.footer_enabled ?? false,
+        footer_type: (blog.footer_type as 'blog' | 'sim') ?? null,
+        footer_target_slug: blog.footer_target_slug ?? null,
       });
     }
   }, [blog]);
@@ -76,7 +87,10 @@ const ArticlePage: React.FC = () => {
       editedBlog.read_time !== blog.read_time ||
       editedBlog.image_url !== blog.image_url ||
       editedBlog.published !== blog.published ||
-      editedBlog.slug !== blog.slug;
+      editedBlog.slug !== blog.slug ||
+      editedBlog.footer_enabled !== (blog.footer_enabled ?? false) ||
+      editedBlog.footer_type !== blog.footer_type ||
+      editedBlog.footer_target_slug !== blog.footer_target_slug;
 
     setHasUnsavedChanges(hasChanges);
   }, [editedBlog, blog, isEditing]);
@@ -108,6 +122,9 @@ const ArticlePage: React.FC = () => {
         image_url: blog.image_url,
         published: blog.published,
         slug: blog.slug,
+        footer_enabled: blog.footer_enabled ?? false,
+        footer_type: (blog.footer_type as 'blog' | 'sim') ?? null,
+        footer_target_slug: blog.footer_target_slug ?? null,
       });
     }
     setIsEditing(false);
@@ -460,6 +477,91 @@ const ArticlePage: React.FC = () => {
                   onChange={(value) => setEditedBlog({ ...editedBlog, content: value })}
                 />
               </div>
+
+              <div className="border-t border-gray-200 pt-6 mt-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Footer Call-to-Action</h3>
+
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={editedBlog.footer_enabled}
+                      onChange={(e) => setEditedBlog({ ...editedBlog, footer_enabled: e.target.checked })}
+                      className="h-4 w-4 text-ocean-600 focus:ring-ocean-500 border-gray-300 rounded"
+                      id="footer-enabled-edit"
+                    />
+                    <label htmlFor="footer-enabled-edit" className="ml-2 text-sm text-gray-700">
+                      Enable footer CTA to guide readers to related content
+                    </label>
+                  </div>
+
+                  {editedBlog.footer_enabled && (
+                    <>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          CTA Type
+                        </label>
+                        <div className="flex space-x-4">
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="footer_type_edit"
+                              value="blog"
+                              checked={editedBlog.footer_type === 'blog'}
+                              onChange={(e) => setEditedBlog({ ...editedBlog, footer_type: e.target.value as 'blog', footer_target_slug: null })}
+                              className="h-4 w-4 text-ocean-600 focus:ring-ocean-500 border-gray-300"
+                            />
+                            <span className="ml-2 text-sm text-gray-700">Blog Post</span>
+                          </label>
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="footer_type_edit"
+                              value="sim"
+                              checked={editedBlog.footer_type === 'sim'}
+                              onChange={(e) => setEditedBlog({ ...editedBlog, footer_type: e.target.value as 'sim', footer_target_slug: null })}
+                              className="h-4 w-4 text-ocean-600 focus:ring-ocean-500 border-gray-300"
+                            />
+                            <span className="ml-2 text-sm text-gray-700">Simulation</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      {editedBlog.footer_type && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Select Target {editedBlog.footer_type === 'blog' ? 'Blog Post' : 'Simulation'}
+                          </label>
+                          <select
+                            value={editedBlog.footer_target_slug || ''}
+                            onChange={(e) => setEditedBlog({ ...editedBlog, footer_target_slug: e.target.value || null })}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ocean-500 focus:border-transparent"
+                          >
+                            <option value="">Select a {editedBlog.footer_type === 'blog' ? 'blog post' : 'simulation'}</option>
+                            {editedBlog.footer_type === 'blog' && publishedBlogs
+                              .filter(b => b.slug !== blog?.slug)
+                              .map((blogItem) => (
+                                <option key={blogItem.id} value={blogItem.slug}>
+                                  {blogItem.title}
+                                </option>
+                              ))}
+                            {editedBlog.footer_type === 'sim' && publishedSimulations.map((sim) => (
+                              <option key={sim.id} value={sim.slug}>
+                                {sim.title}
+                              </option>
+                            ))}
+                          </select>
+                          {editedBlog.footer_target_slug && (
+                            <p className="mt-1 text-xs text-gray-500">
+                              Selected: {editedBlog.footer_target_slug}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
           ) : (
             <>
@@ -504,6 +606,13 @@ const ArticlePage: React.FC = () => {
           )}
         </div>
       </section>
+
+      {!isEditing && blog?.footer_enabled && (
+        <BlogFooterCTA
+          footerType={blog.footer_type}
+          targetSlug={blog.footer_target_slug}
+        />
+      )}
     </div>
   );
 };

@@ -10,12 +10,9 @@ const SimulationsSection: React.FC = () => {
   const displaySimulations = simulations.slice(0, 3);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-50 to-white px-4 sm:px-6 lg:px-8">
+    <section id="sims" className="py-20 bg-gradient-to-b from-slate-50 to-white px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center p-3 bg-gradient-to-r from-mint-100 to-ocean-100 rounded-full mb-4">
-            <Play className="h-6 w-6 text-ocean-600" />
-          </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Practice with Interactive Simulations
           </h2>
@@ -23,6 +20,7 @@ const SimulationsSection: React.FC = () => {
             Learn by doing in a safe environment. Try out Web3 concepts without any risk.
           </p>
         </div>
+      </div>
 
         {loading ? (
           <div className="flex items-center justify-center py-12">
@@ -66,13 +64,6 @@ const SimulationsSection: React.FC = () => {
             )}
           </>
         )}
-
-        <div className="mt-12 bg-blue-50 border-l-4 border-ocean-500 p-6 rounded-r-lg max-w-3xl mx-auto">
-          <p className="text-sm text-gray-700">
-            <strong className="font-semibold text-ocean-700">Safe Practice Environment:</strong> All simulations use fake data and don't connect to real blockchains. Practice as much as you want without any financial risk!
-          </p>
-        </div>
-      </div>
     </section>
   );
 };

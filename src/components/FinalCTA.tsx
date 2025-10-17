@@ -40,7 +40,7 @@ const FinalCTA: React.FC = () => {
           </div>
         </div>
         
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 text-white/90">
+        {/*<div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 text-white/90">
           <div>
             <div className="text-3xl font-bold mb-2">10,000+</div>
             <div className="text-sm">Active Learners</div>
@@ -54,6 +54,7 @@ const FinalCTA: React.FC = () => {
             <div className="text-sm">Risk-Free</div>
           </div>
         </div>
+        */}
       </div>
     </section>
   );
