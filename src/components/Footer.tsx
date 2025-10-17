@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-sm">
-            © 2025 Web3SetGo! v0.3.1 All rights reserved.
+            © 2025 Web3SetGo! v3.3.0 All rights reserved.
           </p>
           <p className="text-gray-400 text-sm flex items-center">
             Made with <Heart className="h-4 w-4 mx-1 text-blue-500" /> for Web3 learners
