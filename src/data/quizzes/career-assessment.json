@@ -1,0 +1,144 @@
+{
+  "slug": "career-assessment",
+  "title": "Web3 Career Assessment",
+  "description": "Find your ideal Web3 career path based on your interests and skills",
+  "icon": "Briefcase",
+  "colorScheme": "from-success-500 to-mint-500",
+  "questions": [
+    {
+      "id": "skills",
+      "question": "What are your strongest skills?",
+      "options": [
+        {
+          "id": "coding",
+          "text": "Programming and development",
+          "value": 3,
+          "category": "developer"
+        },
+        {
+          "id": "design",
+          "text": "Design and user experience",
+          "value": 2,
+          "category": "designer"
+        },
+        {
+          "id": "writing",
+          "text": "Writing and communication",
+          "value": 2,
+          "category": "content"
+        },
+        {
+          "id": "analysis",
+          "text": "Data analysis and research",
+          "value": 3,
+          "category": "analyst"
+        },
+        {
+          "id": "people",
+          "text": "Working with people and teams",
+          "value": 2,
+          "category": "community"
+        }
+      ]
+    },
+    {
+      "id": "work-style",
+      "question": "What work environment do you prefer?",
+      "options": [
+        {
+          "id": "technical",
+          "text": "Deep technical problem-solving",
+          "value": 3,
+          "category": "developer"
+        },
+        {
+          "id": "creative",
+          "text": "Creative and visual projects",
+          "value": 3,
+          "category": "designer"
+        },
+        {
+          "id": "research",
+          "text": "Research and analysis",
+          "value": 3,
+          "category": "analyst"
+        },
+        {
+          "id": "social",
+          "text": "Community building and engagement",
+          "value": 3,
+          "category": "community"
+        },
+        {
+          "id": "education",
+          "text": "Teaching and content creation",
+          "value": 3,
+          "category": "content"
+        }
+      ]
+    },
+    {
+      "id": "motivation",
+      "question": "What motivates you most about Web3?",
+      "options": [
+        {
+          "id": "innovation",
+          "text": "Building cutting-edge technology",
+          "value": 3,
+          "category": "developer"
+        },
+        {
+          "id": "adoption",
+          "text": "Making Web3 accessible to everyone",
+          "value": 2,
+          "category": "designer"
+        },
+        {
+          "id": "education",
+          "text": "Helping others understand Web3",
+          "value": 3,
+          "category": "content"
+        },
+        {
+          "id": "data",
+          "text": "Understanding market trends",
+          "value": 3,
+          "category": "analyst"
+        },
+        {
+          "id": "community",
+          "text": "Building strong communities",
+          "value": 3,
+          "category": "community"
+        }
+      ]
+    }
+  ],
+  "resultCategories": {
+    "developer": {
+      "title": "Web3 Developer",
+      "description": "You are perfect for building the future of the internet!",
+      "advice": "Focus on Solidity, smart contract development, and dApp creation. Consider specializing in DeFi protocols, NFT platforms, or Layer 2 solutions."
+    },
+    "designer": {
+      "title": "Web3 UX/UI Designer",
+      "description": "Web3 desperately needs great designers to improve user experience.",
+      "advice": "Learn about wallet UX, DeFi interfaces, and NFT marketplaces. Your skills in making complex systems simple are invaluable in Web3."
+    },
+    "analyst": {
+      "title": "Web3 Analyst",
+      "description": "Your analytical skills are crucial for understanding Web3 markets.",
+      "advice": "Dive into on-chain analytics, tokenomics research, and DeFi protocol analysis. Consider roles at crypto funds or research firms."
+    },
+    "content": {
+      "title": "Web3 Content Creator",
+      "description": "Web3 needs clear communicators to bridge the knowledge gap.",
+      "advice": "Create educational content, technical documentation, or community resources. Consider roles in developer relations or content marketing."
+    },
+    "community": {
+      "title": "Web3 Community Manager",
+      "description": "Strong communities are the backbone of successful Web3 projects.",
+      "advice": "Focus on Discord/Telegram management, DAO governance, and community growth strategies. Your people skills are essential for Web3 adoption."
+    }
+  }
+}

@@ -20,14 +20,14 @@ const FinalCTA: React.FC = () => {
           </h2>
           
           <p className="text-xl text-white/90 mb-8 leading-relaxed">
-            Join thousands of learners who discovered Web3 the safe way. 
+            Discover Web3 the safe way. 
             Your future self will thank you for starting today.
           </p>
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link 
-            to="/learning"
+          <Link
+            to="/blogs"
             className="inline-flex items-center px-8 py-4 bg-white text-primary-600 font-semibold rounded-xl hover:bg-gray-50 transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
             <Rocket className="mr-2 h-5 w-5" />

@@ -1,0 +1,134 @@
+{
+  "slug": "bull-or-bear",
+  "title": "Are You Bull or Bear?",
+  "description": "Discover your Web3 and crypto sentiment and investment personality",
+  "icon": "TrendingUp",
+  "colorScheme": "from-accentYellow-500 to-orange-500",
+  "questions": [
+    {
+      "id": "market-view",
+      "question": "How do you view the current crypto market?",
+      "options": [
+        {
+          "id": "bullish",
+          "text": "Very optimistic - we are going to the moon!",
+          "value": 3,
+          "category": "bull"
+        },
+        {
+          "id": "cautious-bull",
+          "text": "Optimistic but cautious",
+          "value": 2,
+          "category": "bull"
+        },
+        {
+          "id": "neutral",
+          "text": "Neutral - waiting to see what happens",
+          "value": 0,
+          "category": "neutral"
+        },
+        {
+          "id": "cautious-bear",
+          "text": "Pessimistic but open-minded",
+          "value": -2,
+          "category": "bear"
+        },
+        {
+          "id": "bearish",
+          "text": "Very pessimistic - it is all going to crash",
+          "value": -3,
+          "category": "bear"
+        }
+      ]
+    },
+    {
+      "id": "investment-style",
+      "question": "What is your investment approach?",
+      "options": [
+        {
+          "id": "hodl",
+          "text": "HODL forever - diamond hands",
+          "value": 3,
+          "category": "bull"
+        },
+        {
+          "id": "dca",
+          "text": "Dollar-cost averaging regularly",
+          "value": 2,
+          "category": "bull"
+        },
+        {
+          "id": "swing",
+          "text": "Buy dips, sell peaks",
+          "value": 0,
+          "category": "neutral"
+        },
+        {
+          "id": "minimal",
+          "text": "Very small, experimental amounts",
+          "value": -1,
+          "category": "bear"
+        },
+        {
+          "id": "none",
+          "text": "I do not invest in crypto",
+          "value": -3,
+          "category": "bear"
+        }
+      ]
+    },
+    {
+      "id": "future-outlook",
+      "question": "Where do you see Web3 in 5 years?",
+      "options": [
+        {
+          "id": "mainstream",
+          "text": "Mainstream adoption everywhere",
+          "value": 3,
+          "category": "bull"
+        },
+        {
+          "id": "growing",
+          "text": "Steady growth and real use cases",
+          "value": 2,
+          "category": "bull"
+        },
+        {
+          "id": "niche",
+          "text": "Useful but still niche",
+          "value": 0,
+          "category": "neutral"
+        },
+        {
+          "id": "struggling",
+          "text": "Still struggling with adoption",
+          "value": -2,
+          "category": "bear"
+        },
+        {
+          "id": "failed",
+          "text": "Mostly failed experiment",
+          "value": -3,
+          "category": "bear"
+        }
+      ]
+    }
+  ],
+  "resultCategories": {
+    "bull": {
+      "title": "Crypto Bull",
+      "description": "You are optimistic about Web3 future and ready to ride the waves!",
+      "advice": "Your enthusiasm is great, but remember to manage risk. Consider DCA strategies, diversification, and never invest more than you can afford to lose. Stay informed about market cycles."
+    },
+    "bear": {
+      "title": "Crypto Bear",
+      "description": "You are skeptical about Web3 and prefer to be cautious.",
+      "advice": "Your caution is valuable in volatile markets. Consider starting with education rather than investment. If you do invest, start very small and focus on established projects with real utility."
+    },
+    "neutral": {
+      "title": "Crypto Chameleon",
+      "description": "You adapt to market conditions and stay balanced.",
+      "advice": "Your balanced approach is wise. Focus on fundamental analysis, diversification, and having both bull and bear market strategies. You are well-positioned for long-term success."
+    }
+  }
+}

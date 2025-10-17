@@ -1,25 +1,44 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
-import LearningPage from './pages/LearningPage';
-import ArticlePage from './pages/ArticlePage';
+import BlogsPage from './pages/BlogsPage';
+import BlogPostPage from './pages/BlogPostPage';
+import NewBlogPage from './pages/NewBlogPage';
 import QuizPage from './pages/QuizPage';
+import SimulationsPage from './pages/SimulationsPage';
+import SimulationPage from './pages/SimulationPage';
 import NotFoundPage from './pages/NotFoundPage';
+import RequireAdmin from './components/admin/RequireAdmin';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-slate-50 font-inter">
         <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/learning" element={<LearningPage />} />
-          <Route path="/learning/:slug" element={<ArticlePage />} />
-          <Route path="/quiz" element={<QuizPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <ScrollToTop />
+        <div className="pt-16">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            
+            {/* Blog Routes */}
+            <Route path="/blogs" element={<BlogsPage />} />
+            <Route path="/blogs/new" element={<RequireAdmin><NewBlogPage /></RequireAdmin>} />
+            <Route path="/blogs/:slug" element={<BlogPostPage />} />
+            
+            {/* Quiz Routes */}
+            <Route path="/quiz" element={<QuizPage />} />
+            <Route path="/quiz/:slug" element={<QuizPage />} />
+            
+            {/* Simulation Routes */}
+            <Route path="/simulations" element={<SimulationsPage />} />
+            <Route path="/simulations/:slug" element={<SimulationPage />} />
+            
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
         <Footer />
       </div>
     </Router>

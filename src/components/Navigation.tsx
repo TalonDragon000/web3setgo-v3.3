@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Settings } from 'lucide-react';
+import { useAdmin } from '../contexts/AdminContext';
 
 const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showAdminDropdown, setShowAdminDropdown] = useState(false);
   const location = useLocation();
+  const { isAdmin } = useAdmin();
 
+  /*
   const scrollToSection = (sectionId: string) => {
     // If not on homepage, navigate to homepage first
     if (location.pathname !== '/') {
@@ -16,6 +20,7 @@ const Navigation: React.FC = () => {
     }
     setIsMobileMenuOpen(false);
   };
+  */
 
   const scrollToTop = () => {
     // If not on homepage, navigate to homepage
@@ -48,26 +53,49 @@ const Navigation: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection('why-learn')}
-              className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
-            >
-              Why Learn
-            </button>
-            <button
-              onClick={() => scrollToSection('how-it-works')}
-              className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
-            >
-              How It Works
-            </button>
-            <button
-              onClick={() => scrollToSection('resource-hub')}
-              className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
-            >
-              Resources
-            </button>
             <Link
-              to="/learning"
+              to="/simulations"
+              className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
+            >
+              Simulations
+            </Link>
+            <Link
+              to="/quiz"
+              className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
+            >
+              Quizzes
+            </Link>
+            {isAdmin && (
+              <div className="relative">
+                <button
+                  onClick={() => setShowAdminDropdown(!showAdminDropdown)}
+                  className="text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200 flex items-center gap-1"
+                >
+                  <Settings className="h-4 w-4" />
+                  Manage
+                </button>
+                {showAdminDropdown && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <Link
+                      to="/simulations"
+                      onClick={() => setShowAdminDropdown(false)}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-ocean-50 hover:text-ocean-600"
+                    >
+                      Manage Simulations
+                    </Link>
+                    <Link
+                      to="/blogs"
+                      onClick={() => setShowAdminDropdown(false)}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-ocean-50 hover:text-ocean-600"
+                    >
+                      Manage Blogs
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+            <Link
+              to="/blogs"
               className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-lg hover:from-mint-600 hover:to-ocean-600 transition-all duration-200"
             >
               Start Learning
@@ -91,26 +119,44 @@ const Navigation: React.FC = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-100">
             <div className="flex flex-col space-y-4">
-              <button
-                onClick={() => scrollToSection('why-learn')}
-                className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
-              >
-                Why Learn
-              </button>
-              <button
-                onClick={() => scrollToSection('how-it-works')}
-                className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
-              >
-                How It Works
-              </button>
-              <button
-                onClick={() => scrollToSection('resource-hub')}
-                className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
-              >
-                Resources
-              </button>
               <Link
-                to="/learning"
+                to="/simulations"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
+              >
+                Simulations
+              </Link>
+              <Link
+                to="/quiz"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200"
+              >
+                Quizzes
+              </Link>
+              {isAdmin && (
+                <>
+                  <div className="border-t border-gray-200 my-2"></div>
+                  <Link
+                    to="/simulations"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200 flex items-center gap-2"
+                  >
+                    <Settings className="h-4 w-4" />
+                    Manage Simulations
+                  </Link>
+                  <Link
+                    to="/blogs"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-left text-gray-600 hover:text-ocean-600 font-medium transition-colors duration-200 flex items-center gap-2"
+                  >
+                    <Settings className="h-4 w-4" />
+                    Manage Blogs
+                  </Link>
+                  <div className="border-t border-gray-200 my-2"></div>
+                </>
+              )}
+              <Link
+                to="/blogs"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-lg hover:from-mint-600 hover:to-ocean-600 transition-all duration-200"
               >

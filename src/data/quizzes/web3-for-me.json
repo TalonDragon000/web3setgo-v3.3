@@ -1,0 +1,149 @@
+{
+  "slug": "web3-for-me",
+  "title": "Is Web3 For Me?",
+  "description": "Discover which Web3 features could benefit your work and lifestyle",
+  "icon": "Target",
+  "colorScheme": "from-mint-500 to-ocean-500",
+  "questions": [
+    {
+      "id": "work-type",
+      "question": "What best describes your work?",
+      "options": [
+        {
+          "id": "creative",
+          "text": "Creative work (art, writing, music)",
+          "value": 3,
+          "category": "creator"
+        },
+        {
+          "id": "business",
+          "text": "Business/entrepreneurship",
+          "value": 2,
+          "category": "business"
+        },
+        {
+          "id": "tech",
+          "text": "Technology/development",
+          "value": 3,
+          "category": "tech"
+        },
+        {
+          "id": "finance",
+          "text": "Finance/investing",
+          "value": 3,
+          "category": "finance"
+        },
+        {
+          "id": "other",
+          "text": "Other profession",
+          "value": 1,
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "id": "pain-points",
+      "question": "What frustrates you most about current systems?",
+      "options": [
+        {
+          "id": "middlemen",
+          "text": "Too many middlemen taking cuts",
+          "value": 3,
+          "category": "creator"
+        },
+        {
+          "id": "control",
+          "text": "Lack of control over my data",
+          "value": 2,
+          "category": "privacy"
+        },
+        {
+          "id": "access",
+          "text": "Limited access to global markets",
+          "value": 3,
+          "category": "business"
+        },
+        {
+          "id": "fees",
+          "text": "High transaction fees",
+          "value": 2,
+          "category": "finance"
+        },
+        {
+          "id": "none",
+          "text": "Current systems work fine for me",
+          "value": 0,
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "id": "interests",
+      "question": "Which Web3 concept interests you most?",
+      "options": [
+        {
+          "id": "nfts",
+          "text": "Owning digital assets (NFTs)",
+          "value": 3,
+          "category": "creator"
+        },
+        {
+          "id": "defi",
+          "text": "Decentralized finance (DeFi)",
+          "value": 3,
+          "category": "finance"
+        },
+        {
+          "id": "dao",
+          "text": "Community governance (DAOs)",
+          "value": 2,
+          "category": "business"
+        },
+        {
+          "id": "identity",
+          "text": "Digital identity control",
+          "value": 2,
+          "category": "privacy"
+        },
+        {
+          "id": "unsure",
+          "text": "Not sure yet",
+          "value": 1,
+          "category": "general"
+        }
+      ]
+    }
+  ],
+  "resultCategories": {
+    "creator": {
+      "title": "Web3 Creator",
+      "description": "Web3 offers powerful tools for creators like you!",
+      "advice": "Explore NFT marketplaces, creator DAOs, and direct fan monetization. You could benefit from royalty systems and cutting out traditional middlemen."
+    },
+    "finance": {
+      "title": "DeFi Explorer",
+      "description": "Decentralized finance could revolutionize your financial activities.",
+      "advice": "Start with yield farming, liquidity pools, and decentralized exchanges. Learn about lending protocols and automated market makers."
+    },
+    "business": {
+      "title": "Web3 Entrepreneur",
+      "description": "Web3 opens new business models and global opportunities.",
+      "advice": "Investigate DAOs, tokenomics, and blockchain-based business models. Consider how smart contracts could automate your processes."
+    },
+    "tech": {
+      "title": "Web3 Builder",
+      "description": "Your technical skills are perfect for the Web3 ecosystem.",
+      "advice": "Dive into smart contract development, dApp creation, and blockchain protocols. The demand for Web3 developers is huge!"
+    },
+    "privacy": {
+      "title": "Digital Sovereignty Seeker",
+      "description": "Web3 aligns with your desire for data control and privacy.",
+      "advice": "Focus on self-sovereign identity, decentralized storage, and privacy-focused protocols. You will love having control over your digital footprint."
+    },
+    "general": {
+      "title": "Web3 Curious",
+      "description": "Web3 might not be immediately relevant, but it is worth understanding.",
+      "advice": "Start with basic education about blockchain and cryptocurrency. Keep an eye on developments that might affect your industry in the future."
+    }
+  }
+}

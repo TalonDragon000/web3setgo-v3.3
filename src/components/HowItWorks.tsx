@@ -98,7 +98,7 @@ const HowItWorks: React.FC = () => {
         
         <div className="text-center mt-12">
           <Link
-            to="/learning"
+            to="/blogs"
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-ocean-600 transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             Get Started — It's Free

@@ -1,0 +1,136 @@
+/* Shared styles for simulation components */
+
+/* Card Containers */
+.sim-card {
+  @apply bg-white rounded-2xl p-8 shadow-sm;
+}
+
+.sim-card-header {
+  @apply text-center mb-8;
+}
+
+/* Buttons */
+.sim-button-primary {
+  @apply w-full py-4 bg-gradient-to-r from-mint-500 to-ocean-500 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-ocean-600 transition-all duration-200;
+}
+
+.sim-button-secondary {
+  @apply px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-300 transition-all duration-200;
+}
+
+.sim-button-success {
+  @apply px-6 py-3 bg-success-600 text-white font-semibold rounded-xl hover:bg-success-700 transition-all duration-200;
+}
+
+.sim-button-danger {
+  @apply px-6 py-3 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 transition-all duration-200;
+}
+
+.sim-button-disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Info Boxes */
+.sim-info-box {
+  @apply bg-blue-50 border-l-4 border-ocean-500 p-4 rounded-r-lg;
+}
+
+.sim-warning-box {
+  @apply bg-yellow-50 border-l-4 border-accentYellow-500 p-4 rounded-r-lg;
+}
+
+.sim-success-box {
+  @apply bg-green-50 border-l-4 border-success-500 p-4 rounded-r-lg;
+}
+
+.sim-error-box {
+  @apply bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg;
+}
+
+.sim-info-text {
+  @apply text-sm text-gray-700;
+}
+
+.sim-info-title {
+  @apply font-semibold text-gray-900 mb-2;
+}
+
+/* Input Fields */
+.sim-input {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ocean-500 focus:border-transparent;
+}
+
+.sim-input-group {
+  @apply space-y-4;
+}
+
+.sim-label {
+  @apply block text-sm font-medium text-gray-700 mb-2;
+}
+
+/* Progress Indicators */
+.sim-progress-bar {
+  @apply w-full bg-gray-200 rounded-full h-2;
+}
+
+.sim-progress-fill {
+  @apply bg-gradient-to-r from-mint-500 to-ocean-500 h-2 rounded-full transition-all duration-300;
+}
+
+.sim-step-indicator {
+  @apply flex items-center justify-between mb-4;
+}
+
+/* Special Elements */
+.sim-icon-circle {
+  @apply inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-mint-100 to-ocean-100 mb-6;
+}
+
+.sim-completion-icon {
+  @apply inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-r from-success-100 to-mint-100 mb-6;
+}
+
+/* Responsive Grids */
+.sim-grid-2 {
+  @apply grid grid-cols-2 gap-3;
+}
+
+.sim-grid-3 {
+  @apply grid grid-cols-3 gap-3;
+}
+
+.sim-grid-4 {
+  @apply grid grid-cols-2 md:grid-cols-4 gap-3;
+}
+
+/* Option Buttons (for quizzes and choices) */
+.sim-option {
+  @apply w-full p-4 text-left rounded-xl border-2 transition-all duration-200 border-gray-200 hover:border-ocean-300 hover:bg-gray-50;
+}
+
+.sim-option-selected {
+  @apply border-ocean-500 bg-ocean-50;
+}
+
+/* Loading State */
+.sim-loading {
+  @apply animate-spin rounded-full h-16 w-16 border-4 border-ocean-500 border-t-transparent mx-auto;
+}
+
+/* Text Styles */
+.sim-title {
+  @apply text-3xl font-bold text-gray-900 mb-4;
+}
+
+.sim-subtitle {
+  @apply text-xl font-semibold text-gray-900 mb-3;
+}
+
+.sim-description {
+  @apply text-lg text-gray-600 leading-relaxed;
+}
+
+.sim-hint {
+  @apply text-sm text-gray-600 mt-1;
+}
+
