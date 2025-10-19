@@ -90,12 +90,12 @@ const Footer: React.FC = () => {
             <h3 className="font-semibold text-white mb-4">Contact Us</h3>
             <ul className="space-y-2">
               <li>
-                <Twitter
-                  icon= "Twitter"
+                <Link
                   to="https://x.com/Web3SetGo"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                </Twitter>
+                <Twitter></Twitter>
+                </Link>
               </li>
               <li>
                 <Link
