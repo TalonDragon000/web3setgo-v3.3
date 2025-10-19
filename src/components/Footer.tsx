@@ -107,7 +107,7 @@ const Footer: React.FC = () => {
                   to="https://forms.gle/JaycjrF7moBvrPXv8"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  Email Form
+                  Email Us
                 </Link>
               </li>
             </ul>
