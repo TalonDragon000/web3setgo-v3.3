@@ -101,7 +101,7 @@ const Footer: React.FC = () => {
                   to="https://github.com/TalonDragon000/web3setgo-v3.3"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  Github
+                  <Github />
                 </Link>
               </li>
               <li>
