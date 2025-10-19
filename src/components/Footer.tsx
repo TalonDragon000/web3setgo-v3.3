@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, LogIn, LogOut, Shield } from 'lucide-react';
+import { Heart, LogIn, LogOut, Shield, Twitter, Github } from 'lucide-react';
 import { useAdmin } from '../contexts/AdminContext';
 import AdminLogin from './admin/AdminLogin';
 
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
                 <Link
                   to="https://x.com/Web3SetGo"
                   className="text-gray-400 hover:text-white transition-colors duration-200"> 
-                  Twitter
+                  <Twitter />
                 </Link>
               </li>
               <li>
