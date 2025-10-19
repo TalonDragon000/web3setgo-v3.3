@@ -94,7 +94,8 @@ const Footer: React.FC = () => {
                   icon= "Twitter"
                   to="https://x.com/Web3SetGo"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
-                />
+                >
+                </Twitter>
               </li>
               <li>
                 <Link
