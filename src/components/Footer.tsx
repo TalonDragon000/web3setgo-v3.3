@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, LogIn, LogOut, Shield, Twitter, Github } from 'lucide-react';
+import { Heart, LogIn, LogOut, Shield, Twitter, Telegram, Github } from 'lucide-react';
 import { useAdmin } from '../contexts/AdminContext';
 import AdminLogin from './admin/AdminLogin';
 
@@ -89,27 +89,23 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="font-semibold text-white mb-4">Contact Us</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  to="https://x.com/Web3SetGo"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"> 
-                  <Twitter />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="https://github.com/TalonDragon000/web3setgo-v3.3"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  <Github />
-                </Link>
-              </li>
+              <Link
+                 to="https://x.com/Web3SetGo"
+                 className="text-gray-400 hover:text-white transition-colors duration-200"> 
+                 <Twitter />
+              </Link>
+              <Link
+                 to="https://github.com/TalonDragon000/web3setgo-v3.3"
+                 className="text-gray-400 hover:text-white transition-colors duration-200"
+               >
+                 <Github />
+              </Link>
               <li>
                 <Link
                   to="https://forms.gle/JaycjrF7moBvrPXv8"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  Contact Us
+                  Email Form
                 </Link>
               </li>
             </ul>
