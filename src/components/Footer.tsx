@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
                 <Link
                   to="https://x.com/Web3SetGo"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
-                > <Twitter className="h-10 w-10"></Twitter>
+                > <Twitter className="h-10 w-10" />
                 </Link>
               </li>
               <li>
