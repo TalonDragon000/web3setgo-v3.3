@@ -91,9 +91,10 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <Link
+                  id="twitter"
                   to="https://x.com/Web3SetGo"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
-                ><Twitter />
+                >
                 </Link>
               </li>
               <li>
