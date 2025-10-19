@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, LogIn, LogOut, Shield } from 'lucide-react';
+import { Heart, LogIn, LogOut, Shield, Twitter, Send, Github } from 'lucide-react';
 import { useAdmin } from '../contexts/AdminContext';
 import AdminLogin from './admin/AdminLogin';
 
@@ -87,30 +87,32 @@ const Footer: React.FC = () => {
 
           {/* Socials */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Socials</h3>
+            <h3 className="font-semibold text-white mb-4">Contact Us</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  to="https://x.com/Web3SetGo"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Twitter / X
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="https://github.com/TalonDragon000/web3setgo-v3.3"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Github
-                </Link>
-              </li>
+            <div className="flex items-center justify-left gap-2">
+              <Link
+                 to="https://x.com/Web3SetGo"
+                 className="text-gray-400 hover:text-white transition-colors duration-200"> 
+                 <Twitter />
+              </Link>
+              <Link
+                 to="https://t.me/Web3SetGo"
+                 className="text-gray-400 hover:text-white transition-colors duration-200"> 
+                 <Send />
+              </Link>
+              <Link
+                 to="https://github.com/TalonDragon000/web3setgo-v3.3"
+                 className="text-gray-400 hover:text-white transition-colors duration-200"
+               >
+                 <Github />
+              </Link>
+            </div>
               <li>
                 <Link
                   to="https://forms.gle/JaycjrF7moBvrPXv8"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  Contact Us
+                  Email Us
                 </Link>
               </li>
             </ul>
@@ -120,7 +122,7 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-sm">
-            © 2025 Web3SetGo! v3.3.0 All rights reserved.
+            © 2025 Web3SetGo! v3.3.3 All rights reserved.
           </p>
           <p className="text-gray-400 text-sm flex items-center">
             Made with <Heart className="h-4 w-4 mx-1 text-blue-500" /> for Web3 learners
