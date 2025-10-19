@@ -11,7 +11,7 @@ const NotFoundPage: React.FC = () => {
           {/* Nova 404 Image */}
           <div className="mb-8 animate-fade-in">
             <img 
-              src="nova-404.png"
+              src="/nova-404.png"
               alt="Nova the mascot looking confused - Page not found"
               className="w-full max-w-md mx-auto h-auto"
             />
@@ -88,7 +88,7 @@ const NotFoundPage: React.FC = () => {
           {/* Left Side - Nova 404 Image */}
           <div className="flex-1 animate-fade-in flex justify-center">
             <img 
-              src="/src/assets/nova-404.png"
+              src="/nova-404.png"
               alt="Nova the mascot looking confused - Page not found"
               className="w-full max-w-lg h-auto"
             />
