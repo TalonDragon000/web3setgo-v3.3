@@ -87,14 +87,13 @@ const Footer: React.FC = () => {
 
           {/* Socials */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Socials</h3>
+            <h3 className="font-semibold text-white mb-4">Contact Us</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   to="https://x.com/Web3SetGo"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Twitter / X
+                ><Twitter />
                 </Link>
               </li>
               <li>
