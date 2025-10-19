@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
           {/* Socials */}
           <div>
             <h3 className="font-semibold text-white mb-4">Contact Us</h3>
-            <div className="justify-flex">
+            <div className="flex items-center justify-center">
               <Link
                  to="https://x.com/Web3SetGo"
                  className="text-gray-400 hover:text-white transition-colors duration-200"> 
